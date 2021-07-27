@@ -254,7 +254,8 @@ class ProfilePress
                 margin: 0 auto;
             }
 
-            #loginwp-admin-ppress .notice {
+            #loginwp-admin-ppress .notice,
+            #loginwp-admin-ppress .error {
                 display: none
             }
 
@@ -470,7 +471,7 @@ class ProfilePress
 				<h1>%3$s</h1>
 				<p>%4$s</p>
 			</section>',
-            esc_url(PTR_LOGINWP_ASSETS_URL . '/loginwpXprofilepress.png'),
+            esc_url(PTR_LOGINWP_ASSETS_URL . 'images/loginwpXprofilepress.png'),
             esc_attr__('ProfilePress ♥ ProfilePress', 'peters-login-redirect'),
             esc_html__('Modern Custom Login Forms & Membership Plugin', 'peters-login-redirect'),
             esc_html__('ProfilePress lets you create beautiful frontend custom login forms, registration forms, member directories and user profiles. You can also protect sensitive contents and control user access.', 'peters-login-redirect')
@@ -495,7 +496,7 @@ class ProfilePress
 					<li>%7$s</li>
 				</ul>			
 			</section>',
-            PTR_LOGINWP_ASSETS_URL . '/ppress-login-form.png',
+            PTR_LOGINWP_ASSETS_URL . 'images/ppress-login-form.png',
             esc_attr__('ProfilePress screenshot', 'peters-login-redirect'),
             esc_html__('Beautiful templates for login, registration, password reset & edit profile edit forms.', 'peters-login-redirect'),
             esc_html__('Fine-grained control over what content your users can see based on your protection rules.', 'peters-login-redirect'),
@@ -528,7 +529,7 @@ class ProfilePress
 					<button class="button %5$s" data-plugin="%6$s" data-action="%7$s">%8$s</button>
 				</div>		
 			</section>',
-            esc_url(PTR_LOGINWP_ASSETS_URL . '/' . $step['icon']),
+            esc_url(PTR_LOGINWP_ASSETS_URL . 'images/' . $step['icon']),
             esc_attr__('Step 1', 'peters-login-redirect'),
             esc_html__('Install and Activate ProfilePress', 'peters-login-redirect'),
             esc_html__('Install ProfilePress from the WordPress.org plugin repository.', 'peters-login-redirect'),
@@ -563,7 +564,7 @@ class ProfilePress
 				</div>		
 			</section>',
             esc_attr($step['section_class']),
-            esc_url(PTR_LOGINWP_ASSETS_URL . '/' . $step['icon']),
+            esc_url(PTR_LOGINWP_ASSETS_URL . 'images/' . $step['icon']),
             esc_attr__('Step 2', 'peters-login-redirect'),
             esc_html__('Set Up ProfilePress', 'peters-login-redirect'),
             esc_html__('Configure and create your first login form.', 'peters-login-redirect'),

@@ -2,7 +2,23 @@
 
 namespace LoginWP\Core;
 
-class Init
+global $wpdb;
+define('PTR_LOGINWP_DB_TABLE', $wpdb->prefix . 'login_redirects');
+define('PTR_LOGINWP_ADMIN_PAGE_SLUG', 'loginwp-settings');
+define('PTR_LOGINWP_ADMIN_PAGE_URL', admin_url('admin.php?page=' . PTR_LOGINWP_ADMIN_PAGE_SLUG));
+
+define('PTR_LOGINWP_URL', plugin_dir_url(PTR_LOGINWP_SYSTEM_FILE_PATH));
+define('PTR_LOGINWP_ASSETS_DIR', wp_normalize_path(dirname(PTR_LOGINWP_SYSTEM_FILE_PATH) . '/assets/'));
+
+if (strpos(__FILE__, 'peters-login-redirect/' . DIRECTORY_SEPARATOR . 'src') !== false) {
+    // production url path to assets folder.
+    define('PTR_LOGINWP_ASSETS_URL', PTR_LOGINWP_URL . 'src/core/assets/');
+} else {
+    // dev url path to assets folder.
+    define('PTR_LOGINWP_ASSETS_URL', PTR_LOGINWP_URL . '../' . dirname(dirname(substr(__FILE__, strpos(__FILE__, 'peters-login-redirect')))) . '/assets/');
+}
+
+class Core
 {
     public function __construct()
     {
