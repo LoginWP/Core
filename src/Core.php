@@ -22,8 +22,6 @@ class Core
 {
     public function __construct()
     {
-        add_action('init', [$this, 'rul_textdomain']);
-
         register_activation_hook(PTR_LOGINWP_SYSTEM_FILE_PATH, [__CLASS__, 'rul_activate_plugin']);
         register_uninstall_hook(PTR_LOGINWP_SYSTEM_FILE_PATH, [__CLASS__, 'rul_uninstall_plugin']);
         add_filter('wpmu_drop_tables', [$this, 'rul_drop_tables']);
@@ -41,11 +39,6 @@ class Core
 
         Hooks::get_instance();
         Admin\Init::get_instance();
-    }
-
-    public function rul_textdomain()
-    {
-        load_plugin_textdomain('peters-login-redirect', false, dirname(plugin_basename(PTR_LOGINWP_SYSTEM_FILE_PATH)) . '/languages');
     }
 
     public static function rul_install()

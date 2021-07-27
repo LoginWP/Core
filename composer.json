@@ -1,4 +1,7 @@
 {
+  "name": "loginwp/core",
+  "description": "Core lib for LoginWP",
+  "type": "wordpress-plugin",
   "autoload": {
     "psr-4": {
       "LoginWP\\Core\\": "src/"
@@ -7,5 +10,10 @@
       "src/MoAdminNotice.php",
       "src/Functions.php"
     ]
+  },
+  "config": {
+    "platform": {
+      "php": "5.6"
+    }
   }
 }
