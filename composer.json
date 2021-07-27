@@ -1,0 +1,11 @@
+{
+  "autoload": {
+    "psr-4": {
+      "LoginWP\\Core\\": "src/"
+    },
+    "files": [
+      "src/MoAdminNotice.php",
+      "src/Functions.php"
+    ]
+  }
+}

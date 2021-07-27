@@ -1,0 +1,56 @@
+.loginwp-data-listing .ptr-loginwp-condition-wrap,
+.ptr-loginwp-condition-wrap * {
+    box-sizing: border-box;
+}
+
+.loginwp-data-listing .ptr-loginwp-condition-wrap {
+    padding: 20px 15px 15px;
+}
+
+.loginwp-data-listing .ptr-loginwp-row {
+    box-sizing: border-box;
+}
+
+.loginwp-data-listing .ptr-loginwp-col {
+    width: 49.5%;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.loginwp-data-listing .ptr-loginwp-col select {
+    width: 100%;
+    padding: 0 5px;
+    max-width: 100%;
+}
+
+.loginwp-data-listing .ptr-loginwp-redirect-wrap,
+.loginwp-data-listing .ptr-loginwp-order-wrap {
+    padding: 0 10px 0 15px;
+}
+
+.loginwp-data-listing .ptr-loginwp-redirect-wrap input {
+    width: 100%;
+}
+
+.loginwp-data-listing .ptr-loginwp-order-wrap th {
+    width: 50px;
+}
+
+.loginwp-data-listing .ptr-loginwp-order-wrap input {
+    width: 60px;
+    padding-right: 0;
+}
+
+.loginwp-data-listing .handle-actions {
+    display: none
+}
+
+.loginwp-view-variables {
+    text-align: right;
+    padding: 15px 10px 0;
+}
+
+.loginwp-view-placeholders-wrap .loginwp-placeholder {
+    border-bottom: 1px solid #eee;
+    padding: 15px 0px;
+}
