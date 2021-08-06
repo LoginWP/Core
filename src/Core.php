@@ -3,6 +3,9 @@
 namespace LoginWP\Core;
 
 global $wpdb;
+
+use LoginWP\Core\Redirections\Redirections;
+
 define('PTR_LOGINWP_DB_TABLE', $wpdb->prefix . 'login_redirects');
 define('PTR_LOGINWP_ADMIN_PAGE_SLUG', 'loginwp-settings');
 define('PTR_LOGINWP_ADMIN_PAGE_URL', admin_url('admin.php?page=' . PTR_LOGINWP_ADMIN_PAGE_SLUG));
@@ -37,7 +40,7 @@ class Core
 
         add_action('admin_init', [$this, 'rul_upgrade']);
 
-        Hooks::get_instance();
+        Redirections::get_instance();
         Admin\Init::get_instance();
     }
 
