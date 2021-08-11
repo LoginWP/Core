@@ -1089,6 +1089,11 @@ public function _header($args)
 </div>';
     }
 
+    public function header_tab_menus()
+    {
+
+    }
+
     /**
      * Build the settings page.
      *

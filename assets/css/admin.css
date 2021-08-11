@@ -52,5 +52,49 @@
 
 .loginwp-view-placeholders-wrap .loginwp-placeholder {
     border-bottom: 1px solid #eee;
-    padding: 15px 0px;
+    padding: 15px 0;
+}
+
+.loginwp-admin-banner {
+    background-color: #3C50FF;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+    top: 0;
+    width: 100%;
+    padding: 15px;
+}
+
+.loginwp-admin .wrap {
+    padding-left: 20px;
+    margin: 0 20px 0 2px;
+}
+
+.wp-admin.loginwp-admin #wpcontent {
+    padding: 0;
+}
+
+.loginwp-admin .loginwp-admin-banner__logo img {
+    width: 150px;
+    height: auto;
+    float: left;
+    margin-top: 15px;
+}
+
+.loginwp-admin-banner__helplinks {
+    float: right;
+    padding: 20px;
+}
+
+.loginwp-admin-banner__helplinks a {
+    color: #ffffffe3;
+    text-decoration: none;
+    padding-right: 15px;
+}
+
+.loginwp-admin div#screen-meta-links {
+    position: absolute;
+    right: 0;
+    z-index: 9;
 }

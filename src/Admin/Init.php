@@ -4,7 +4,7 @@ namespace LoginWP\Core\Admin;
 
 use LoginWP\Core\Helpers;
 
-class Init
+class Init extends AbstractSettingsPage
 {
     /**
      * @var RedirectWPList
@@ -13,13 +13,15 @@ class Init
 
     public function __construct()
     {
-        add_action('admin_menu', [$this, 'register_settings_page'], 1);
+        ProfilePress::get_instance();
+
+        $this->init_menu();
+
+        add_action('admin_menu', [$this, 'register_settings_page']);
         add_action('admin_enqueue_scripts', array($this, 'admin_assets'));
 
         add_action('admin_init', [$this, 'save_redirect_rule_changes']);
         add_action('admin_init', [$this, 'save_other_settings_changes']);
-
-        new ProfilePress();
     }
 
     public static function get_rule_conditions()
@@ -48,16 +50,6 @@ class Init
 
     public function register_settings_page()
     {
-        add_menu_page(
-            __('LoginWP Redirections', 'peters-login-redirect'),
-            __('LoginWP', 'peters-login-redirect'),
-            'manage_options',
-            PTR_LOGINWP_ADMIN_PAGE_SLUG,
-            '',
-            'dashicons-shield',
-            '80.0015'
-        );
-
         $hook = add_submenu_page(
             PTR_LOGINWP_ADMIN_PAGE_SLUG,
             __('Redirections - LoginWP', 'peters-login-redirect'),
@@ -129,6 +121,7 @@ class Init
         $instance = SettingsPageApi::instance();
         $instance->option_name('loginwp_settings');
         $instance->page_header(__('Redirections', 'peters-login-redirect'));
+        $this->settings_page_header();
         echo '<div class="loginwp-data-listing">';
         $instance->build(true);
         echo '</div>';

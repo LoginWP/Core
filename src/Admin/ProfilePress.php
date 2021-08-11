@@ -20,7 +20,7 @@ class ProfilePress
     public function __construct()
     {
         add_action('loginwp_admin_hooks', function () {
-            add_action('admin_menu', array($this, 'register_settings_page'));
+            $this->register_settings_page();
         });
 
         add_action('wp_ajax_loginwp_activate_plugin', [$this, 'loginwp_activate_plugin']);
