@@ -94,11 +94,11 @@ class RedirectionsSettingsPage extends AbstractSettingsPage
 
     public function add_new_button()
     {
-        $url   = add_query_arg('new', '1', PTR_LOGINWP_ADMIN_PAGE_URL);
+        $url   = add_query_arg('new', '1', PTR_LOGINWP_REDIRECTIONS_PAGE_URL);
         $label = __('Add New Rule', 'peters-login-redirect');
 
         if (isset($_GET['new']) || isset($_GET['action'])) {
-            $url   = PTR_LOGINWP_ADMIN_PAGE_URL;
+            $url   = PTR_LOGINWP_REDIRECTIONS_PAGE_URL;
             $label = __('Go Back', 'peters-login-redirect');
         }
 

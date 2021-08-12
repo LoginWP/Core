@@ -92,7 +92,7 @@ class RedirectWPList extends \WP_List_Table
     {
         printf(
             __('No redirection rule found. %sConsider creating one%s', 'peters-login-redirect'),
-            '<a href="' . add_query_arg('new', '1', PTR_LOGINWP_ADMIN_PAGE_URL) . '">',
+            '<a href="' . add_query_arg('new', '1', PTR_LOGINWP_REDIRECTIONS_PAGE_URL) . '">',
             '</a>'
         );
     }
@@ -118,7 +118,7 @@ class RedirectWPList extends \WP_List_Table
      */
     public static function edit_rule_url($id)
     {
-        return add_query_arg(['action' => 'edit', 'id' => absint($id)], PTR_LOGINWP_ADMIN_PAGE_URL);
+        return add_query_arg(['action' => 'edit', 'id' => absint($id)], PTR_LOGINWP_REDIRECTIONS_PAGE_URL);
     }
 
     /**
@@ -129,7 +129,7 @@ class RedirectWPList extends \WP_List_Table
     public static function delete_rule_url($id)
     {
         return wp_nonce_url(
-            add_query_arg(['action' => 'delete', 'id' => absint($id)], PTR_LOGINWP_ADMIN_PAGE_URL),
+            add_query_arg(['action' => 'delete', 'id' => absint($id)], PTR_LOGINWP_REDIRECTIONS_PAGE_URL),
             'loginwp-delete-rule'
         );
     }
@@ -298,7 +298,7 @@ class RedirectWPList extends \WP_List_Table
 
             self::delete_rule(absint($_GET['id']));
 
-            wp_safe_redirect(add_query_arg('deleted', 'true', PTR_LOGINWP_ADMIN_PAGE_URL));
+            wp_safe_redirect(add_query_arg('deleted', 'true', PTR_LOGINWP_REDIRECTIONS_PAGE_URL));
             exit;
         }
 
@@ -312,7 +312,7 @@ class RedirectWPList extends \WP_List_Table
                 self::delete_rule($id);
             }
 
-            wp_safe_redirect(add_query_arg('deleted', 'true', PTR_LOGINWP_ADMIN_PAGE_URL));
+            wp_safe_redirect(add_query_arg('deleted', 'true', PTR_LOGINWP_REDIRECTIONS_PAGE_URL));
             exit;
         }
     }

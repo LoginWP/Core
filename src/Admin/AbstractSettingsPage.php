@@ -88,13 +88,16 @@ abstract class AbstractSettingsPage
     {
         $menus = apply_filters('loginwp_header_menu_tabs', []);
 
-        var_dump($menus);
+        $active_menu = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'rules';
 
         ?>
         <div class="loginwp-header-menus">
             <nav class="loginwp-nav-tab-wrapper nav-tab-wrapper">
-                <a href="#" class="loginwp-nav-tab nav-tab loginwp-nav-active">General</a>
-                <a href="#" class="loginwp-nav-tab nav-tab">Integration</a>
+                <?php foreach ($menus as $id => $menu) : ?>
+                    <a href="<?php echo add_query_arg('tab', $id, PTR_LOGINWP_REDIRECTIONS_PAGE_URL); ?>" class="loginwp-nav-tab nav-tab<?= $id == $active_menu ? ' loginwp-nav-active' : '' ?>">
+                        <?php echo $menu ?>
+                    </a>
+                <?php endforeach; ?>
             </nav>
         </div>
         <?php
