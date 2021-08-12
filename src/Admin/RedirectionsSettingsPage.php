@@ -4,7 +4,7 @@ namespace LoginWP\Core\Admin;
 
 use LoginWP\Core\Helpers;
 
-class Init extends AbstractSettingsPage
+class RedirectionsSettingsPage extends AbstractSettingsPage
 {
     /**
      * @var RedirectWPList
@@ -15,10 +15,7 @@ class Init extends AbstractSettingsPage
     {
         ProfilePress::get_instance();
 
-        $this->init_menu();
-
-        add_action('admin_menu', [$this, 'register_settings_page']);
-        add_action('admin_enqueue_scripts', array($this, 'admin_assets'));
+        parent::__construct();
 
         add_action('admin_init', [$this, 'save_redirect_rule_changes']);
         add_action('admin_init', [$this, 'save_other_settings_changes']);
@@ -86,18 +83,6 @@ class Init extends AbstractSettingsPage
         }
 
         $this->wplist_instance = RedirectWPList::get_instance();
-    }
-
-    public function admin_assets()
-    {
-        if (isset(get_current_screen()->base) && strpos(get_current_screen()->base, 'loginwp') !== false) {
-            wp_enqueue_style('ptr-loginwp-admin', PTR_LOGINWP_ASSETS_URL . 'css/admin.css', [], PTR_LOGINWP_VERSION_NUMBER);
-            wp_enqueue_script('ptr-loginwp-admin', PTR_LOGINWP_ASSETS_URL . 'js/admin.js', ['jquery', 'wp-util'], PTR_LOGINWP_VERSION_NUMBER, true);
-
-            wp_localize_script('ptr-loginwp-admin', 'loginwp_globals', [
-                'confirm_delete' => esc_html__('Are you sure?', 'peters-login-redirect')
-            ]);
-        }
     }
 
     public function add_new_button()

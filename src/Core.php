@@ -41,7 +41,7 @@ class Core
         add_action('admin_init', [$this, 'rul_upgrade']);
 
         Redirections::get_instance();
-        Admin\Init::get_instance();
+        Admin\RedirectionsSettingsPage::get_instance();
     }
 
     public static function rul_install()

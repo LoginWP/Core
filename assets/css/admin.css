@@ -63,7 +63,7 @@
     position: relative;
     top: 0;
     width: 100%;
-    padding: 15px;
+    padding: 15px 15px 0;
 }
 
 .loginwp-admin .wrap {
@@ -76,10 +76,11 @@
 }
 
 .loginwp-admin .loginwp-admin-banner__logo img {
-    width: 150px;
+    width: 140px;
     height: auto;
     float: left;
     margin-top: 15px;
+    padding-left: 15px;
 }
 
 .loginwp-admin-banner__helplinks {
@@ -97,4 +98,29 @@
     position: absolute;
     right: 0;
     z-index: 9;
+}
+
+.loginwp-nav-tab-wrapper {
+    padding: 0;
+    margin: 0 16px;
+    border-bottom: 0;
+}
+
+.loginwp-nav-tab-wrapper .loginwp-nav-tab {
+    display: block;
+    font-weight: 500;
+    padding: 6px 30px;
+    text-decoration: none;
+    border: 1px solid transparent;
+
+    background-color: transparent;
+    color: #fff;
+    margin: 0;
+}
+
+.loginwp-nav-tab-wrapper .loginwp-nav-tab.loginwp-nav-active {
+    background-color: #fff;
+    color: #2d3559;
+    border-color: #fff;
+    border-radius: 4px 4px 0 0;
 }
