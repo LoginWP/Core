@@ -10,6 +10,8 @@ abstract class AbstractSettingsPage
 
         add_action('admin_enqueue_scripts', array($this, 'admin_assets'));
         add_action('admin_menu', [$this, 'register_settings_page']);
+
+        add_filter('loginwp_header_menu_tabs', [$this, 'header_menu_tabs']);
     }
 
     public function register_core_menu()
@@ -25,6 +27,11 @@ abstract class AbstractSettingsPage
         );
 
         add_filter('admin_body_class', [$this, 'add_admin_body_class']);
+    }
+
+    public function header_menu_tabs($tabs)
+    {
+        return $tabs;
     }
 
     public function add_admin_body_class($classes)
@@ -79,6 +86,10 @@ abstract class AbstractSettingsPage
 
     public function settings_page_header_menus()
     {
+        $menus = apply_filters('loginwp_header_menu_tabs', []);
+
+        var_dump($menus);
+
         ?>
         <div class="loginwp-header-menus">
             <nav class="loginwp-nav-tab-wrapper nav-tab-wrapper">

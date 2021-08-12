@@ -61,6 +61,13 @@ class RedirectionsSettingsPage extends AbstractSettingsPage
         add_action("load-$hook", array($this, 'screen_option'));
     }
 
+    public function header_menu_tabs($tabs)
+    {
+        $tabs['rules'] = esc_html__('Rules', 'peters-login-redirect');
+
+        return $tabs;
+    }
+
     /**
      * Screen options
      */
