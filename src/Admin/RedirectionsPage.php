@@ -19,8 +19,7 @@ class RedirectionsPage extends AbstractSettingsPage
 
         add_action('admin_init', [$this, 'save_redirect_rule_changes']);
         add_action('admin_init', [$this, 'save_other_settings_changes']);
-        add_action('loginwp_admin_settings_page_rules', [$this, 'redirection_admin_page_callback']);
-        add_action('loginwp_admin_settings_page_settings', [$this, 'settings_admin_page_callback']);
+        add_action('loginwp_admin_settings_page_rules', [$this, 'redirections_admin_page_callback']);
     }
 
     public function register_menu_page()
@@ -39,10 +38,9 @@ class RedirectionsPage extends AbstractSettingsPage
 
     public function header_menu_tabs($tabs)
     {
-        $tabs['rules']    = esc_html__('Rules', 'peters-login-redirect');
-        $tabs['settings'] = esc_html__('Settings', 'peters-login-redirect');
+        $tabs['rules'] = esc_html__('Rules', 'peters-login-redirect');
 
-        return $tabs;
+        return apply_filters('loginwp_redirections_header_menu_tabs', $tabs);
     }
 
     public static function get_rule_conditions()
@@ -74,7 +72,7 @@ class RedirectionsPage extends AbstractSettingsPage
      */
     public function screen_option()
     {
-        if (isset($_GET['new']) || isset($_GET['action'])) {
+        if (loginwp_var($_GET,'page') != PTR_LOGINWP_ADMIN_PAGE_SLUG || (isset($_GET['tab']) && $_GET['tab'] != 'rules')) {
             add_filter('screen_options_show_screen', '__return_false');
         }
 
@@ -106,7 +104,7 @@ class RedirectionsPage extends AbstractSettingsPage
         printf('<a class="add-new-h2" style=:margin-left:15px;" href="%s">%s</a>', esc_url($url), $label);
     }
 
-    public function redirection_admin_page_callback()
+    public function redirections_admin_page_callback()
     {
         add_action('wp_cspa_before_closing_header', [$this, 'add_new_button']);
         add_action('wp_cspa_main_content_area', array($this, 'wp_list_table'), 10, 2);

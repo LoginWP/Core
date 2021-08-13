@@ -378,6 +378,10 @@ class SettingsPageApi
             max-width: 630px;
             width: 100%;
         }
+
+        .remove_white_styling .postbox .inside {
+            padding-left: 0;
+        }
         </style>
     <?php
     }
