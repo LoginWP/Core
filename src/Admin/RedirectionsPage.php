@@ -110,7 +110,7 @@ class RedirectionsPage extends AbstractSettingsPage
         add_action('wp_cspa_main_content_area', array($this, 'wp_list_table'), 10, 2);
 
         $instance = SettingsPageApi::instance();
-        $instance->option_name('loginwp_settings');
+        $instance->option_name('loginwp_redirection_settings');
         $instance->page_header(__('Redirection Rules', 'peters-login-redirect'));
         echo '<div class="loginwp-data-listing">';
         $instance->build(true);
@@ -132,7 +132,7 @@ class RedirectionsPage extends AbstractSettingsPage
      */
     public function wp_list_table($content, $option_name)
     {
-        if ($option_name != 'loginwp_settings') {
+        if ($option_name != 'loginwp_redirection_settings') {
             return $content;
         }
 
