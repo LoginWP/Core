@@ -24,9 +24,19 @@ class RedirectionsPage extends AbstractSettingsPage
 
     public function register_menu_page()
     {
+        $menus = apply_filters('loginwp_header_menu_tabs', []);
+
+        $active_menu = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'rules';
+
+        $page_title = __('Redirections - LoginWP', 'peters-login-redirect');
+
+        if(isset($menus[$active_menu])) {
+            $page_title = __('Redirection ', 'peters-login-redirect') . $menus[$active_menu];
+        }
+
         $hook = add_submenu_page(
             PTR_LOGINWP_ADMIN_PAGE_SLUG,
-            __('Redirections - LoginWP', 'peters-login-redirect'),
+            $page_title,
             __('Redirections', 'peters-login-redirect'),
             'manage_options',
             PTR_LOGINWP_ADMIN_PAGE_SLUG,
@@ -72,7 +82,7 @@ class RedirectionsPage extends AbstractSettingsPage
      */
     public function screen_option()
     {
-        if (loginwp_var($_GET,'page') != PTR_LOGINWP_ADMIN_PAGE_SLUG || (isset($_GET['tab']) && $_GET['tab'] != 'rules')) {
+        if (loginwp_var($_GET, 'page') != PTR_LOGINWP_ADMIN_PAGE_SLUG || (isset($_GET['tab']) && $_GET['tab'] != 'rules')) {
             add_filter('screen_options_show_screen', '__return_false');
         }
 
