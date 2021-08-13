@@ -1,61 +1,61 @@
 .loginwp-data-listing .ptr-loginwp-condition-wrap,
-.ptr-loginwp-condition-wrap * {
+.loginwp-admin ptr-loginwp-condition-wrap * {
     box-sizing: border-box;
 }
 
-.loginwp-data-listing .ptr-loginwp-condition-wrap {
+.loginwp-admin .loginwp-data-listing .ptr-loginwp-condition-wrap {
     padding: 20px 15px 15px;
 }
 
-.loginwp-data-listing .ptr-loginwp-row {
+.loginwp-admin .loginwp-data-listing .ptr-loginwp-row {
     box-sizing: border-box;
 }
 
-.loginwp-data-listing .ptr-loginwp-col {
+.loginwp-admin .loginwp-data-listing .ptr-loginwp-col {
     width: 49.5%;
     display: inline-block;
     box-sizing: border-box;
 }
 
-.loginwp-data-listing .ptr-loginwp-col select {
+.loginwp-admin .loginwp-data-listing .ptr-loginwp-col select {
     width: 100%;
     padding: 0 5px;
     max-width: 100%;
 }
 
-.loginwp-data-listing .ptr-loginwp-redirect-wrap,
-.loginwp-data-listing .ptr-loginwp-order-wrap {
+.loginwp-admin .loginwp-data-listing .ptr-loginwp-redirect-wrap,
+.loginwp-admin .loginwp-data-listing .ptr-loginwp-order-wrap {
     padding: 0 10px 0 15px;
 }
 
-.loginwp-data-listing .ptr-loginwp-redirect-wrap input {
+.loginwp-admin .loginwp-data-listing .ptr-loginwp-redirect-wrap input {
     width: 100%;
 }
 
-.loginwp-data-listing .ptr-loginwp-order-wrap th {
+.loginwp-admin .loginwp-data-listing .ptr-loginwp-order-wrap th {
     width: 50px;
 }
 
-.loginwp-data-listing .ptr-loginwp-order-wrap input {
+.loginwp-admin .loginwp-data-listing .ptr-loginwp-order-wrap input {
     width: 60px;
     padding-right: 0;
 }
 
-.loginwp-data-listing .handle-actions {
+.loginwp-admin .loginwp-data-listing .handle-actions {
     display: none
 }
 
-.loginwp-view-variables {
+.loginwp-admin .loginwp-view-variables {
     text-align: right;
     padding: 15px 10px 0;
 }
 
-.loginwp-view-placeholders-wrap .loginwp-placeholder {
+.loginwp-admin .loginwp-view-placeholders-wrap .loginwp-placeholder {
     border-bottom: 1px solid #eee;
     padding: 15px 0;
 }
 
-.loginwp-admin-banner {
+.loginwp-admin .loginwp-admin-banner {
     background-color: #3C50FF;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -64,6 +64,7 @@
     top: 0;
     width: 100%;
     padding: 15px 15px 0;
+    margin-bottom: 10px;
 }
 
 .loginwp-admin .wrap {
@@ -75,6 +76,11 @@
     padding: 0;
 }
 
+.loginwp-admin .loginwp-admin-banner__logo {
+    padding: 0 0 15px;
+    display: block;
+}
+
 .loginwp-admin .loginwp-admin-banner__logo img {
     width: 140px;
     height: auto;
@@ -83,12 +89,12 @@
     padding-left: 15px;
 }
 
-.loginwp-admin-banner__helplinks {
+.loginwp-admin .loginwp-admin-banner__helplinks {
     float: right;
     padding: 20px;
 }
 
-.loginwp-admin-banner__helplinks a {
+.loginwp-admin .loginwp-admin-banner__helplinks a {
     color: #ffffffe3;
     text-decoration: none;
     padding-right: 15px;
@@ -100,13 +106,13 @@
     z-index: 9;
 }
 
-.loginwp-nav-tab-wrapper {
+.loginwp-admin .loginwp-nav-tab-wrapper {
     padding: 0;
     margin: 0 16px;
     border-bottom: 0;
 }
 
-.loginwp-nav-tab-wrapper .loginwp-nav-tab {
+.loginwp-admin .loginwp-nav-tab-wrapper .loginwp-nav-tab {
     display: block;
     font-weight: 500;
     padding: 6px 30px;
@@ -118,7 +124,7 @@
     margin: 0;
 }
 
-.loginwp-nav-tab-wrapper .loginwp-nav-tab.loginwp-nav-active {
+.loginwp-admin .loginwp-nav-tab-wrapper .loginwp-nav-tab.loginwp-nav-active {
     background-color: #fff;
     color: #2d3559;
     border-color: #fff;

@@ -9,7 +9,6 @@ abstract class AbstractSettingsPage
         add_action('admin_menu', array($this, 'register_core_menu'));
 
         add_action('admin_enqueue_scripts', array($this, 'admin_assets'));
-        add_action('admin_menu', [$this, 'register_settings_page']);
 
         add_filter('loginwp_header_menu_tabs', [$this, 'header_menu_tabs']);
     }
@@ -26,8 +25,14 @@ abstract class AbstractSettingsPage
             '80.0015'
         );
 
+        $this->register_menu_page();
+
+        do_action('loginwp_admin_hooks');
+
         add_filter('admin_body_class', [$this, 'add_admin_body_class']);
     }
+
+    abstract function register_menu_page();
 
     public function header_menu_tabs($tabs)
     {
@@ -60,7 +65,7 @@ abstract class AbstractSettingsPage
         }
     }
 
-    public function settings_page_header()
+    public function settings_page_header($active_menu)
     {
         $logo_url = PTR_LOGINWP_ASSETS_URL . 'images/loginwp.png';
         ?>
@@ -79,17 +84,14 @@ abstract class AbstractSettingsPage
                 <?php endif; ?>
             </div>
             <div class="clear"></div>
-            <?php $this->settings_page_header_menus(); ?>
+            <?php $this->settings_page_header_menus($active_menu); ?>
         </div>
         <?php
     }
 
-    public function settings_page_header_menus()
+    public function settings_page_header_menus($active_menu)
     {
         $menus = apply_filters('loginwp_header_menu_tabs', []);
-
-        $active_menu = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'rules';
-
         ?>
         <div class="loginwp-header-menus">
             <nav class="loginwp-nav-tab-wrapper nav-tab-wrapper">
@@ -103,5 +105,12 @@ abstract class AbstractSettingsPage
         <?php
     }
 
-    abstract function register_settings_page();
+    public function admin_page_callback()
+    {
+        $active_menu = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'rules';
+
+        $this->settings_page_header($active_menu);
+
+        do_action('loginwp_admin_settings_page_' . $active_menu);
+    }
 }

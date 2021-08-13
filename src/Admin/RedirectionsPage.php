@@ -4,7 +4,7 @@ namespace LoginWP\Core\Admin;
 
 use LoginWP\Core\Helpers;
 
-class RedirectionsSettingsPage extends AbstractSettingsPage
+class RedirectionsPage extends AbstractSettingsPage
 {
     /**
      * @var RedirectWPList
@@ -19,6 +19,30 @@ class RedirectionsSettingsPage extends AbstractSettingsPage
 
         add_action('admin_init', [$this, 'save_redirect_rule_changes']);
         add_action('admin_init', [$this, 'save_other_settings_changes']);
+        add_action('loginwp_admin_settings_page_rules', [$this, 'redirection_admin_page_callback']);
+        add_action('loginwp_admin_settings_page_settings', [$this, 'settings_admin_page_callback']);
+    }
+
+    public function register_menu_page()
+    {
+        $hook = add_submenu_page(
+            PTR_LOGINWP_ADMIN_PAGE_SLUG,
+            __('Redirections - LoginWP', 'peters-login-redirect'),
+            __('Redirections', 'peters-login-redirect'),
+            'manage_options',
+            PTR_LOGINWP_ADMIN_PAGE_SLUG,
+            [$this, 'admin_page_callback']
+        );
+
+        add_action("load-$hook", array($this, 'screen_option'));
+    }
+
+    public function header_menu_tabs($tabs)
+    {
+        $tabs['rules']    = esc_html__('Rules', 'peters-login-redirect');
+        $tabs['settings'] = esc_html__('Settings', 'peters-login-redirect');
+
+        return $tabs;
     }
 
     public static function get_rule_conditions()
@@ -43,29 +67,6 @@ class RedirectionsSettingsPage extends AbstractSettingsPage
                 'order_support' => true
             ]
         ]);
-    }
-
-    public function register_settings_page()
-    {
-        $hook = add_submenu_page(
-            PTR_LOGINWP_ADMIN_PAGE_SLUG,
-            __('Redirections - LoginWP', 'peters-login-redirect'),
-            __('Redirections', 'peters-login-redirect'),
-            'manage_options',
-            PTR_LOGINWP_ADMIN_PAGE_SLUG,
-            [$this, 'admin_page_callback']
-        );
-
-        do_action('loginwp_admin_hooks');
-
-        add_action("load-$hook", array($this, 'screen_option'));
-    }
-
-    public function header_menu_tabs($tabs)
-    {
-        $tabs['rules'] = esc_html__('Rules', 'peters-login-redirect');
-
-        return $tabs;
     }
 
     /**
@@ -95,7 +96,7 @@ class RedirectionsSettingsPage extends AbstractSettingsPage
     public function add_new_button()
     {
         $url   = add_query_arg('new', '1', PTR_LOGINWP_REDIRECTIONS_PAGE_URL);
-        $label = __('Add New Rule', 'peters-login-redirect');
+        $label = __('Add New', 'peters-login-redirect');
 
         if (isset($_GET['new']) || isset($_GET['action'])) {
             $url   = PTR_LOGINWP_REDIRECTIONS_PAGE_URL;
@@ -105,15 +106,14 @@ class RedirectionsSettingsPage extends AbstractSettingsPage
         printf('<a class="add-new-h2" style=:margin-left:15px;" href="%s">%s</a>', esc_url($url), $label);
     }
 
-    public function admin_page_callback()
+    public function redirection_admin_page_callback()
     {
         add_action('wp_cspa_before_closing_header', [$this, 'add_new_button']);
         add_action('wp_cspa_main_content_area', array($this, 'wp_list_table'), 10, 2);
 
         $instance = SettingsPageApi::instance();
         $instance->option_name('loginwp_settings');
-        $instance->page_header(__('Redirections', 'peters-login-redirect'));
-        $this->settings_page_header();
+        $instance->page_header(__('Redirection Rules', 'peters-login-redirect'));
         echo '<div class="loginwp-data-listing">';
         $instance->build(true);
         echo '</div>';
