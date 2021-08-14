@@ -63,8 +63,12 @@
     position: relative;
     top: 0;
     width: 100%;
-    padding: 15px 15px 0;
+    padding: 15px;
     margin-bottom: 10px;
+}
+
+.loginwp-admin .loginwp-admin-banner.loginwp-pro {
+    padding: 15px 15px 0;
 }
 
 .loginwp-admin .wrap {
@@ -85,18 +89,28 @@
     width: 140px;
     height: auto;
     float: left;
-    margin-top: 15px;
+    margin-top: 20px;
     padding-left: 15px;
 }
 
 .loginwp-admin .loginwp-admin-banner__helplinks {
     float: right;
-    padding: 20px;
+    padding: 10px 20px 20px;
 }
 
 .loginwp-admin .loginwp-admin-banner__helplinks a {
     color: #ffffffe3;
     text-decoration: none;
+}
+
+.loginwp-admin .loginwp-admin-banner__helplinks a.lwp-active {
+    background: #fff;
+    padding: 5px;
+    color: #3C50FF;
+    border-radius: 4px;
+}
+
+.loginwp-admin .loginwp-admin-banner__helplinks > span {
     padding-right: 15px;
 }
 
@@ -115,10 +129,9 @@
 .loginwp-admin .loginwp-nav-tab-wrapper .loginwp-nav-tab {
     display: block;
     font-weight: 500;
-    padding: 6px 30px;
+    padding: 5px 25px;
     text-decoration: none;
     border: 1px solid transparent;
-
     background-color: transparent;
     color: #fff;
     margin: 0;
@@ -129,4 +142,12 @@
     color: #2d3559;
     border-color: #fff;
     border-radius: 4px 4px 0 0;
+}
+
+.loginwp-admin .loginwp_redirects th#rul_type {
+    width: 16%;
+}
+
+.loginwp-admin .loginwp_redirects th#rul_value {
+    width: 16%;
 }

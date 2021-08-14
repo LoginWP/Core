@@ -122,8 +122,9 @@ class RedirectionsPage extends AbstractSettingsPage
         $instance = SettingsPageApi::instance();
         $instance->option_name('loginwp_redirection_settings');
         $instance->page_header(__('Redirection Rules', 'peters-login-redirect'));
+        $instance->sidebar($this->sidebar_args());
         echo '<div class="loginwp-data-listing">';
-        $instance->build(true);
+        $instance->build();
         echo '</div>';
     }
 
