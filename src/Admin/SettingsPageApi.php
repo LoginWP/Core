@@ -1010,6 +1010,7 @@ class SettingsPageApi
         $value          = ! empty($args['value']) ? esc_attr($args['value']) : 'true';
         $default_value = isset($db_options[$key]) && ! empty($db_options[$key]) ? $db_options[$key] : @$args['default_value'];
         $option_name    = $this->option_name;
+        $is_disabled = isset($args['disabled']) && $args['disabled'] == 'true';
         ob_start();
         ?>
         <tr id="<?=$tr_id; ?>">
@@ -1018,7 +1019,7 @@ class SettingsPageApi
                 <?php do_action('wp_cspa_before_checkbox_field', $db_options, $option_name, $key, $args); ?>
                 <strong><label for="<?=$key; ?>"><?=$checkbox_label; ?></label></strong>
                 <input type="hidden" name="<?=$option_name, '[', $key, ']'; ?>" value="false">
-                <input type="checkbox" id="<?=$key; ?>" name="<?=$option_name, '[', $key, ']'; ?>" value="<?=$value; ?>" <?php checked($default_value, $value); ?> />
+                <input type="checkbox" id="<?=$key; ?>" name="<?=$option_name, '[', $key, ']'; ?>" value="<?=$value; ?>"<?= $is_disabled ? ' disabled' : ''?> <?php checked($default_value, $value); ?> />
                 <?php do_action('wp_cspa_after_checkbox_field', $db_options, $option_name, $key, $args); ?>
 
                 <p class="description"><?=$description; ?></p>
