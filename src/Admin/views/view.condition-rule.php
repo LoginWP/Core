@@ -1,6 +1,6 @@
 <?php
 
-use LoginWP\Core\Admin\Init;
+use LoginWP\Core\Admin\RedirectionsPage;
 
 $db_condition       = sanitize_text_field(loginwpPOST_var('rul_condition', loginwp_var($ruleData, 'rul_type', '')));
 $db_condition_value = sanitize_text_field(loginwpPOST_var('rul_condition_value', loginwp_var($ruleData, 'rul_value', '')));
@@ -13,7 +13,7 @@ $db_condition_order = absint(loginwpPOST_var('rul_order', loginwp_var($ruleData,
             <label>
                 <select name="rul_condition">
                     <option value=""><?php esc_html_e('Select a condition', 'peters-login-redirect'); ?></option>
-                    <?php foreach (Init::get_rule_conditions() as $condition) : ?>
+                    <?php foreach (RedirectionsPage::get_rule_conditions() as $condition) : ?>
                         <option value="<?php echo esc_attr($condition['id']) ?>" <?php selected($db_condition, $condition['id']) ?>>
                             <?php echo esc_html($condition['label']) ?>
                         </option>
@@ -22,12 +22,12 @@ $db_condition_order = absint(loginwpPOST_var('rul_order', loginwp_var($ruleData,
             </label>
         </div>
         <div id="ptr-loginwp-condition-value-wrap" class="ptr-loginwp-col">
-            <?php Init::condition_value_dropdown($db_condition, $db_condition_value); ?>
+            <?php RedirectionsPage::condition_value_dropdown($db_condition, $db_condition_value); ?>
         </div>
     </div>
 </div>
 
-<div class="ptr-loginwp-order-wrap"<?php echo ! in_array($db_condition, Init::order_support_conditions()) ? 'style="display:none"' : ''; ?>>
+<div class="ptr-loginwp-order-wrap"<?php echo ! in_array($db_condition, RedirectionsPage::order_support_conditions()) ? 'style="display:none"' : ''; ?>>
     <table class="form-table">
         <tbody>
         <tr>

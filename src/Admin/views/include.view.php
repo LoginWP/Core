@@ -1,5 +1,6 @@
 <?php
 
+use LoginWP\Core\Admin\RedirectWPList;
 use LoginWP\Core\Helpers;
 
 $ruleData = [];
@@ -30,23 +31,26 @@ add_action('add_meta_boxes', function () use ($ruleData) {
     );
 });
 
-add_action('add_meta_boxes', function () {
-    add_meta_box(
-        'submitdiv',
-        __('Publish', 'peters-login-redirect'),
-        function () {
-            require dirname(__FILE__) . '/include.view-sidebar.php';
-        },
-        'ptrloginwpredirection',
-        'sidebar'
-    );
-});
-
 do_action('add_meta_boxes', 'ptrloginwpredirection', '');
 
 ?>
 <div id="poststuff">
-    <div id="post-body" class="metabox-holder columns-2">
+    <div id="post-body" class="metabox-holder">
+
+        <div class="loginwp-rule-actions-wrap">
+
+            <div class="loginwp-delete-action">
+                <?php if (isset($_GET['action']) && 'edit' == $_GET['action']) : ?>
+                    <a class="loginwp-delete-prompt" href="<?php echo esc_url(RedirectWPList::delete_rule_url(absint($_GET['id']))); ?>"><?= esc_html__('Delete', 'peters-login-redirect') ?></a>
+                <?php endif; ?>
+            </div>
+
+            <div class="loginwp-save-action">
+                <?php wp_nonce_field('loginwp_save_rule', 'rul-loginwp-nonce') ?>
+                <input type="submit" name="loginwp_save_rule" class="button button-primary button-large" value="<?= esc_html__('Save Rule', 'peters-login-redirect') ?>">
+            </div>
+            <div class="clear"></div>
+        </div>
 
         <div id="postbox-container-1" class="postbox-container">
             <?php do_meta_boxes('ptrloginwpredirection', 'sidebar', ''); ?>

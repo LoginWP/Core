@@ -30,7 +30,7 @@ class RedirectionsPage extends AbstractSettingsPage
 
         $page_title = __('Redirections - LoginWP', 'peters-login-redirect');
 
-        if(isset($menus[$active_menu])) {
+        if (isset($menus[$active_menu])) {
             $page_title = __('Redirection ', 'peters-login-redirect') . $menus[$active_menu];
         }
 
@@ -242,9 +242,9 @@ class RedirectionsPage extends AbstractSettingsPage
 
         global $wpdb;
 
-        $type      = sanitize_text_field($_POST['rul_condition']);
-        $typeValue = sanitize_text_field($_POST['rul_condition_value']);
-        $order     = absint($_POST['rul_order']);
+        $type      = sanitize_text_field(loginwpPOST_var('rul_condition'));
+        $typeValue = sanitize_text_field(loginwpPOST_var('rul_condition_value'));
+        $order     = absint(loginwpPOST_var('rul_order'));
 
         $error_message = '';
 

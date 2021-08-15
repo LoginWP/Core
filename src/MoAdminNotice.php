@@ -61,7 +61,7 @@ if ( ! class_exists( 'MO_Admin_Notice' ) ) {
                             '<span class="mo-stylize"><strong>', '</strong></span>');
                         ?>
                     </p>
-                    <p style="text-decoration: underline;font-size: 12px;">Recommended by "Peter's Login Redirect" plugin</p>
+                    <p style="text-decoration: underline;font-size: 12px;">Recommended by "LoginWP (Peter's Login Redirect)" plugin</p>
                 </div>
                 <div class="mo-notice-other-half">
                     <?php if ( ! $this->is_plugin_installed()) : ?>
