@@ -13,6 +13,8 @@ abstract class AbstractSettingsPage
         add_action('admin_enqueue_scripts', array($this, 'admin_assets'));
 
         add_filter('loginwp_header_menu_tabs', [$this, 'header_menu_tabs']);
+
+        add_filter('admin_footer_text', [$this, 'custom_admin_footer']);
     }
 
     public function register_core_menu()
@@ -138,7 +140,7 @@ abstract class AbstractSettingsPage
             ]
         ];
 
-        if(defined('LOGINWP_DETACH_LIBSODIUM')) {
+        if (defined('LOGINWP_DETACH_LIBSODIUM')) {
             unset($sidebar_args[0]);
         }
 
@@ -215,5 +217,20 @@ abstract class AbstractSettingsPage
         $content .= '</p>';
 
         return $content;
+    }
+
+    public function custom_admin_footer($text)
+    {
+        if (strpos(loginwpGET_var('page'), 'loginwp') !== false) {
+            $text = sprintf(
+            // translators: %1$s star rating.
+                __('Thank you for using LoginWP. Please rate the plugin %1$s on %2$sWordPress.org%3$s to help us spread the word.', 'block-visibility'),
+                '<a href="https://wordpress.org/support/plugin/peters-login-redirect/reviews/?filter=5#new-post" target="_blank" rel="noopener noreferrer">★★★★★</a>',
+                '<a href="https://wordpress.org/support/plugin/peters-login-redirect/reviews/?filter=5#new-post" target="_blank" rel="noopener">',
+                '</a>'
+            );
+        }
+
+        return $text;
     }
 }
