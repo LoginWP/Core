@@ -34,7 +34,7 @@ add_action('add_meta_boxes', function () use ($ruleData) {
 do_action('add_meta_boxes', 'ptrloginwpredirection', '');
 
 ?>
-<div id="poststuff">
+<div id="poststuff" style="padding-top: 0">
     <div id="post-body" class="metabox-holder">
 
         <div class="loginwp-rule-actions-wrap">
@@ -47,7 +47,7 @@ do_action('add_meta_boxes', 'ptrloginwpredirection', '');
 
             <div class="loginwp-save-action">
                 <?php wp_nonce_field('loginwp_save_rule', 'rul-loginwp-nonce') ?>
-                <input type="submit" name="loginwp_save_rule" class="button button-primary button-large" value="<?= esc_html__('Save Rule', 'peters-login-redirect') ?>">
+                <input style="min-height: 35px;padding: 0 15px;" type="submit" name="loginwp_save_rule" class="button button-primary button-large" value="<?= esc_html__('Save Rule', 'peters-login-redirect') ?>">
             </div>
             <div class="clear"></div>
         </div>

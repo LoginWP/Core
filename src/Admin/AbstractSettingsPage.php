@@ -138,6 +138,10 @@ abstract class AbstractSettingsPage
             ]
         ];
 
+        if(defined('LOGINWP_DETACH_LIBSODIUM')) {
+            unset($sidebar_args[0]);
+        }
+
         return $sidebar_args;
     }
 
@@ -182,11 +186,15 @@ abstract class AbstractSettingsPage
 
         $content = '<p>';
 
-        $request_support_url = '';
+        $support_url = 'https://wordpress.org/support/plugin/peters-login-redirect/';
+
+        if (defined('LOGINWP_DETACH_LIBSODIUM')) {
+            $support_url = 'https://loginwp.com/submit-ticket/';
+        }
 
         $content .= sprintf(
-            esc_html__('Whether you need help or have a new feature request, do let us know. %sRequest Support%s', 'peters-login-redirect'),
-            '<a class="loginwp-link" href="https://loginwp.com/docs/" target="_blank">', $link_icon . '</a>'
+            esc_html__('Whether you need help or have a new feature request, let us know. %sRequest Support%s', 'peters-login-redirect'),
+            '<a class="loginwp-link" href="' . $support_url . '" target="_blank">', $link_icon . '</a>'
         );
 
         $content .= '</p>';
