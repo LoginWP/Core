@@ -379,7 +379,7 @@ class SettingsPageApi
             width: 100%;
         }
 
-        .remove_white_styling .postbox .inside {
+        .remove_white_styling #post-body-content .postbox .inside {
             padding-left: 0;
         }
         </style>

@@ -2,38 +2,13 @@
 
 namespace LoginWP\Core\Admin;
 
-use LoginWP\Libsodium\Redirections\Integrations;
-
 abstract class AbstractSettingsPage
 {
     public function __construct()
     {
-        add_action('admin_menu', array($this, 'register_core_menu'));
-
-        add_action('admin_enqueue_scripts', array($this, 'admin_assets'));
+        add_action('loginwp_register_menu_page', array($this, 'register_menu_page'));
 
         add_filter('loginwp_header_menu_tabs', [$this, 'header_menu_tabs']);
-
-        add_filter('admin_footer_text', [$this, 'custom_admin_footer']);
-    }
-
-    public function register_core_menu()
-    {
-        add_menu_page(
-            __('LoginWP Redirections', 'peters-login-redirect'),
-            __('LoginWP', 'peters-login-redirect'),
-            'manage_options',
-            PTR_LOGINWP_ADMIN_PAGE_SLUG,
-            '',
-            'dashicons-shield',
-            '80.0015'
-        );
-
-        $this->register_menu_page();
-
-        do_action('loginwp_admin_hooks');
-
-        add_filter('admin_body_class', [$this, 'add_admin_body_class']);
     }
 
     abstract function register_menu_page();
@@ -43,30 +18,9 @@ abstract class AbstractSettingsPage
         return $tabs;
     }
 
-    public function add_admin_body_class($classes)
+    public function get_header_menu_tabs()
     {
-        $current_screen = get_current_screen();
-
-        if (empty ($current_screen)) return;
-
-        if (false !== strpos($current_screen->id, 'loginwp')) {
-            // Leave space on both sides so other plugins do not conflict.
-            $classes .= ' loginwp-admin ';
-        }
-
-        return $classes;
-    }
-
-    public function admin_assets()
-    {
-        if (isset(get_current_screen()->base) && strpos(get_current_screen()->base, 'loginwp') !== false) {
-            wp_enqueue_style('ptr-loginwp-admin', PTR_LOGINWP_ASSETS_URL . 'css/admin.css', [], PTR_LOGINWP_VERSION_NUMBER);
-            wp_enqueue_script('ptr-loginwp-admin', PTR_LOGINWP_ASSETS_URL . 'js/admin.js', ['jquery', 'wp-util'], PTR_LOGINWP_VERSION_NUMBER, true);
-
-            wp_localize_script('ptr-loginwp-admin', 'loginwp_globals', [
-                'confirm_delete' => esc_html__('Are you sure?', 'peters-login-redirect')
-            ]);
-        }
+        return apply_filters('loginwp_header_menu_tabs', []);
     }
 
     public function settings_page_header($active_menu)
@@ -102,7 +56,7 @@ abstract class AbstractSettingsPage
 
     public function settings_page_header_menus($active_menu)
     {
-        $menus = apply_filters('loginwp_header_menu_tabs', []);
+        $menus = $this->get_header_menu_tabs();
 
         if (count($menus) < 2) return;
         ?>
@@ -127,16 +81,16 @@ abstract class AbstractSettingsPage
         do_action('loginwp_admin_settings_page_' . $active_menu);
     }
 
-    public function sidebar_args()
+    public static function sidebar_args()
     {
         $sidebar_args = [
             [
                 'section_title' => esc_html__('Upgrade to Premium', 'peters-login-redirect'),
-                'content'       => $this->pro_upsell(),
+                'content'       => self::pro_upsell(),
             ],
             [
                 'section_title' => esc_html__('Need Support?', 'peters-login-redirect'),
-                'content'       => $this->sidebar_support_docs(),
+                'content'       => self::sidebar_support_docs(),
             ]
         ];
 
@@ -147,7 +101,7 @@ abstract class AbstractSettingsPage
         return $sidebar_args;
     }
 
-    public function pro_upsell()
+    public static function pro_upsell()
     {
         $integrations = [
             'WooCommerce',
@@ -182,7 +136,7 @@ abstract class AbstractSettingsPage
         return $content;
     }
 
-    public function sidebar_support_docs()
+    public static function sidebar_support_docs()
     {
         $link_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="linkIcon"><path d="M18.2 17c0 .7-.6 1.2-1.2 1.2H7c-.7 0-1.2-.6-1.2-1.2V7c0-.7.6-1.2 1.2-1.2h3.2V4.2H7C5.5 4.2 4.2 5.5 4.2 7v10c0 1.5 1.2 2.8 2.8 2.8h10c1.5 0 2.8-1.2 2.8-2.8v-3.6h-1.5V17zM14.9 3v1.5h3.7l-6.4 6.4 1.1 1.1 6.4-6.4v3.7h1.5V3h-6.3z"></path></svg>';
 
@@ -217,20 +171,5 @@ abstract class AbstractSettingsPage
         $content .= '</p>';
 
         return $content;
-    }
-
-    public function custom_admin_footer($text)
-    {
-        if (strpos(loginwpGET_var('page'), 'loginwp') !== false) {
-            $text = sprintf(
-            // translators: %1$s star rating.
-                __('Thank you for using LoginWP. Please rate the plugin %1$s on %2$sWordPress.org%3$s to help us spread the word.', 'block-visibility'),
-                '<a href="https://wordpress.org/support/plugin/peters-login-redirect/reviews/?filter=5#new-post" target="_blank" rel="noopener noreferrer">★★★★★</a>',
-                '<a href="https://wordpress.org/support/plugin/peters-login-redirect/reviews/?filter=5#new-post" target="_blank" rel="noopener">',
-                '</a>'
-            );
-        }
-
-        return $text;
     }
 }

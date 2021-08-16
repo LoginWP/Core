@@ -24,7 +24,7 @@ class RedirectionsPage extends AbstractSettingsPage
 
     public function register_menu_page()
     {
-        $menus = apply_filters('loginwp_header_menu_tabs', []);
+        $menus = $this->get_header_menu_tabs();
 
         $active_menu = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'rules';
 
@@ -122,7 +122,7 @@ class RedirectionsPage extends AbstractSettingsPage
         $instance = SettingsPageApi::instance();
         $instance->option_name('loginwp_redirection_settings');
         $instance->page_header(__('Redirection Rules', 'peters-login-redirect'));
-        $instance->sidebar($this->sidebar_args());
+        $instance->sidebar(self::sidebar_args());
         echo '<div class="loginwp-data-listing">';
         $instance->build();
         echo '</div>';
