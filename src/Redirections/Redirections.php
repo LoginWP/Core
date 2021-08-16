@@ -20,6 +20,7 @@ class Redirections
         if ( ! isset($user->user_login)) return $redirect_to;
 
         $requested_redirect_to = ! empty($requested_redirect_to) ? $requested_redirect_to : loginwp_var($_REQUEST, 'redirect_to', '');
+        $requested_redirect_to = wp_validate_redirect($requested_redirect_to);
 
         if ('1' == $post_redirect_to_override && ! empty($requested_redirect_to) && $requested_redirect_to != admin_url()) {
             return $requested_redirect_to;

@@ -69,6 +69,11 @@ function loginwp_var_obj($bucket, $key, $default = false, $empty = false)
     return isset($bucket->$key) ? $bucket->$key : $default;
 }
 
+function redirect_to_front_page($redirect_to, $requested_redirect_to, $user)
+{
+    Helpers::login_redirect_logic_callback($redirect_to, $requested_redirect_to, $user);
+}
+
 function wplogin_redirect_control_function()
 {
     $redirect_url = Redirections::login_redirect_callback(admin_url(), '', wp_get_current_user());
