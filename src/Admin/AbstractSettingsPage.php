@@ -85,7 +85,7 @@ abstract class AbstractSettingsPage
     {
         $sidebar_args = [
             [
-                'section_title' => esc_html__('Upgrade to Premium', 'peters-login-redirect'),
+                'section_title' => esc_html__('Upgrade to Pro', 'peters-login-redirect'),
                 'content'       => self::pro_upsell(),
             ],
             [
@@ -110,7 +110,7 @@ abstract class AbstractSettingsPage
             'LearnDash',
             'MemberPress',
             'Restrict Content Pro',
-            'Lifter LMS',
+            'LifterLMS',
             'Easy Digital Downloads',
             'Ultimate Member',
             'WP User Manager',
@@ -119,7 +119,7 @@ abstract class AbstractSettingsPage
         ];
 
         $content = '<p>';
-        $content .= esc_html__('Enhance the power of LoginWP with the Premium version featuring integrations with many plugins.', 'peters-login-redirect');
+        $content .= esc_html__('Enhance the power of LoginWP with the Pro version featuring integrations with many plugins.', 'peters-login-redirect');
         $content .= '</p>';
 
         $content .= '<ul>';
@@ -131,7 +131,7 @@ abstract class AbstractSettingsPage
         $content .= '</ul>';
 
         $url     = 'https://loginwp.com/pricing/?utm_source=wp_dashboard&utm_medium=upgrade&utm_campaign=sidebar_upsell';
-        $content .= '<a href="' . $url . '" target="__blank" class="button-primary">' . esc_html__('Get LoginWP Premium →', 'peters-login-redirect') . '</a>';
+        $content .= '<a href="' . $url . '" target="__blank" class="button-primary">' . esc_html__('Get LoginWP Pro →', 'peters-login-redirect') . '</a>';
 
         return $content;
     }
