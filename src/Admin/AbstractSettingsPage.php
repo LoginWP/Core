@@ -7,21 +7,13 @@ abstract class AbstractSettingsPage
     public function __construct()
     {
         add_action('loginwp_register_menu_page', array($this, 'register_menu_page'));
-
-        add_filter('loginwp_header_menu_tabs', [$this, 'header_menu_tabs']);
     }
 
     abstract function register_menu_page();
 
-    public function header_menu_tabs($tabs)
-    {
-        return $tabs;
-    }
+    abstract function header_menu_tabs();
 
-    public function get_header_menu_tabs()
-    {
-        return apply_filters('loginwp_header_menu_tabs', []);
-    }
+    abstract function default_header_menu();
 
     public function settings_page_header($active_menu)
     {
@@ -56,7 +48,7 @@ abstract class AbstractSettingsPage
 
     public function settings_page_header_menus($active_menu)
     {
-        $menus = $this->get_header_menu_tabs();
+        $menus = $this->header_menu_tabs();
 
         if (count($menus) < 2) return;
         ?>
@@ -74,7 +66,7 @@ abstract class AbstractSettingsPage
 
     public function admin_page_callback()
     {
-        $active_menu = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'rules';
+        $active_menu = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : $this->default_header_menu();
 
         $this->settings_page_header($active_menu);
 

@@ -24,7 +24,7 @@ class RedirectionsPage extends AbstractSettingsPage
 
     public function register_menu_page()
     {
-        $menus = $this->get_header_menu_tabs();
+        $menus = $this->header_menu_tabs();
 
         $active_menu = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'rules';
 
@@ -46,7 +46,12 @@ class RedirectionsPage extends AbstractSettingsPage
         add_action("load-$hook", array($this, 'screen_option'));
     }
 
-    public function header_menu_tabs($tabs)
+    public function default_header_menu()
+    {
+        return 'rules';
+    }
+
+    public function header_menu_tabs()
     {
         $tabs['rules'] = esc_html__('Rules', 'peters-login-redirect');
 
