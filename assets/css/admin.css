@@ -228,3 +228,55 @@
 .loginwp-admin.wp-core-ui .wrap .loginwp-delete-action a {
     color: #b32d2e;
 }
+
+.loginwp-admin .loginwp-banner {
+    position: absolute;
+    left: 10%;
+    display: block;
+    margin: 10px 5px 20px;
+    width: 600px;
+    height: 60px;
+    border: 1px solid #8a1;
+    font: 400 30px/60px Rye;
+    text-align: center;
+    color: #451;
+    background: #9b2;
+    border-radius: 4px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, .15) inset, 0 6px 10px rgba(0, 0, 0, .15)
+}
+
+.loginwp-admin .loginwp-banner::after,
+.loginwp-admin .loginwp-banner::before {
+    content: '';
+    position: absolute;
+    left: -70px;
+    top: 24px;
+    display: block;
+    width: 40px;
+    height: 0;
+    border: 30px solid #9b2;
+    border-right: 20px solid #791;
+    border-bottom-color: #94b81e;
+    border-left-color: transparent;
+    transform: rotate(-5deg)
+}
+
+.loginwp-admin .loginwp-banner::after {
+    left: auto;
+    right: -70px;
+    border-left: 20px solid #791;
+    border-right: 30px solid transparent;
+    transform: rotate(5deg)
+}
+
+.loginwp-admin .loginwp-banner-wrap {
+    height: 90px;
+}
+
+.remove_white_styling.loginwp_license #post-body-content .form-table th {
+    width: 150px;
+}
+
+.remove_white_styling.loginwp_license #post-body-content input.regular-text {
+    width: 30em;
+}
