@@ -17,9 +17,10 @@ abstract class AbstractSettingsPage
 
     public function settings_page_header($active_menu)
     {
-        $logo_url = PTR_LOGINWP_ASSETS_URL . 'images/loginwp.png';
+        $logo_url       = PTR_LOGINWP_ASSETS_URL . 'images/loginwp.png';
+        $submenus_count = $menus = count($this->header_menu_tabs());
         ?>
-        <div class="loginwp-admin-banner<?= defined('LOGINWP_DETACH_LIBSODIUM') ? ' loginwp-pro' : '' ?>">
+        <div class="loginwp-admin-banner<?= defined('LOGINWP_DETACH_LIBSODIUM') ? ' loginwp-pro' : '' ?><?= $submenus_count < 2 ? ' loginwp-no-submenu' : '' ?>">
             <div class="loginwp-admin-banner__logo">
                 <img src="<?= $logo_url ?>" alt="">
             </div>

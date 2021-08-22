@@ -71,6 +71,10 @@
     padding: 15px 15px 0;
 }
 
+.loginwp-admin .loginwp-admin-banner.loginwp-pro.loginwp-no-submenu {
+    padding-bottom: 15px;
+}
+
 .loginwp-admin .wrap {
     padding-left: 20px;
     margin: 0 20px 0 2px;
