@@ -15,5 +15,8 @@
     "platform": {
       "php": "5.6"
     }
+  },
+  "require": {
+    "collizo4sky/persist-admin-notices-dismissal": "^1.4"
   }
 }

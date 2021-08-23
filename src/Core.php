@@ -77,6 +77,8 @@ class Core
             add_option('rul_version', PTR_LOGINWP_VERSION_NUMBER, '', 'no');
         }
 
+        add_option('loginwp_install_date', current_time('mysql'));
+
         self::rul_upgrade();
     }
 
