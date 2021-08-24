@@ -82,7 +82,8 @@ class RedirectWPList extends \WP_List_Table
     public function record_count()
     {
         global $wpdb;
-        $sql = "SELECT COUNT(*) FROM $this->table";
+
+        $sql = "SELECT COUNT(*) FROM {$this->table} WHERE rul_type NOT IN ('all','register')";
 
         return $wpdb->get_var($sql);
     }

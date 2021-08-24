@@ -106,6 +106,7 @@ abstract class AbstractSettingsPage
             'LifterLMS',
             'Easy Digital Downloads',
             'Ultimate Member',
+            'WP User Frontend',
             'WP User Manager',
             'User Registration (WPEverest)',
             'Theme My Login'
