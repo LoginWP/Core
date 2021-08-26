@@ -69,6 +69,46 @@ function loginwp_var_obj($bucket, $key, $default = false, $empty = false)
     return isset($bucket->$key) ? $bucket->$key : $default;
 }
 
+/**
+ * Return currently viewed page url without query string.
+ *
+ * @return string
+ */
+function loginwp_get_current_url()
+{
+    $protocol = 'http://';
+
+    if ((isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1))
+        || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
+    ) {
+        $protocol = 'https://';
+    }
+
+    return esc_url_raw($protocol . $_SERVER['HTTP_HOST'] . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+}
+
+/**
+ * Return currently viewed page url with query string.
+ *
+ * @return string
+ */
+function loginwp_get_current_url_query_string()
+{
+    $protocol = 'http://';
+
+    if ((isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1))
+        || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
+    ) {
+        $protocol = 'https://';
+    }
+
+    $url = $protocol . $_SERVER['HTTP_HOST'];
+
+    $url .= $_SERVER['REQUEST_URI'];
+
+    return esc_url_raw($url);
+}
+
 function redirect_to_front_page($redirect_to, $requested_redirect_to, $user)
 {
     Helpers::login_redirect_logic_callback($redirect_to, $requested_redirect_to, $user);

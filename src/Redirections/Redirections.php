@@ -3,6 +3,7 @@
 namespace LoginWP\Core\Redirections;
 
 use LoginWP\Core\Helpers;
+use LoginWP\Libsodium\Session\Session;
 
 class Redirections
 {
@@ -23,6 +24,9 @@ class Redirections
         $requested_redirect_to = wp_validate_redirect($requested_redirect_to);
 
         if ('1' == $post_redirect_to_override && ! empty($requested_redirect_to) && $requested_redirect_to != admin_url()) {
+
+            do_action('loginwp_after_login_redirect', $requested_redirect_to, $user);
+
             return $requested_redirect_to;
         }
 
@@ -31,6 +35,8 @@ class Redirections
         if ( ! empty($rul_url)) {
 
             Helpers::rul_trigger_allowed_host($rul_url);
+
+            do_action('loginwp_after_login_redirect', $rul_url, $user);
 
             return $rul_url;
         }
