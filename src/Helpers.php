@@ -227,16 +227,16 @@ class Helpers
 
         $rul_custom_redirect = apply_filters('rul_before_user', false, $redirect_to, $requested_redirect_to, $user);
 
-        if ($rul_custom_redirect) return Helpers::rul_replace_variable($rul_custom_redirect, $user);
+        if ($rul_custom_redirect) return self::rul_replace_variable($rul_custom_redirect, $user);
 
         // Check for a redirect rule for this user
         $rul_user = $wpdb->get_var('SELECT rul_url FROM ' . PTR_LOGINWP_DB_TABLE . ' WHERE rul_type = \'user\' AND rul_value = \'' . $user->user_login . '\' LIMIT 1');
 
-        if ( ! empty($rul_user)) return Helpers::rul_replace_variable($rul_user, $user);
+        if ( ! empty($rul_user)) return self::rul_replace_variable($rul_user, $user);
 
         $rul_custom_redirect = apply_filters('rul_before_role', false, $redirect_to, $requested_redirect_to, $user);
 
-        if ($rul_custom_redirect) return Helpers::rul_replace_variable($rul_custom_redirect, $user);
+        if ($rul_custom_redirect) return self::rul_replace_variable($rul_custom_redirect, $user);
 
         // Check for a redirect rule that matches this user's role
         $rul_roles = $wpdb->get_results('SELECT rul_value, rul_url FROM ' . PTR_LOGINWP_DB_TABLE . ' WHERE rul_type = \'role\' ORDER BY rul_order, rul_value', OBJECT);
@@ -246,33 +246,33 @@ class Helpers
             foreach ($rul_roles as $rul_role) {
 
                 if ( ! empty($rul_role->rul_url) && isset($user->{$wpdb->prefix . 'capabilities'}[$rul_role->rul_value])) {
-                    return Helpers::rul_replace_variable($rul_role->rul_url, $user);
+                    return self::rul_replace_variable($rul_role->rul_url, $user);
                 }
             }
         }
 
         $rul_custom_redirect = apply_filters('rul_before_capability', false, $redirect_to, $requested_redirect_to, $user);
 
-        if ($rul_custom_redirect) return Helpers::rul_replace_variable($rul_custom_redirect, $user);
+        if ($rul_custom_redirect) return self::rul_replace_variable($rul_custom_redirect, $user);
 
         // Check for a redirect rule that matches this user's capability
         $rul_levels = $wpdb->get_results('SELECT rul_value, rul_url FROM ' . PTR_LOGINWP_DB_TABLE . ' WHERE rul_type = \'level\' ORDER BY rul_order, rul_value', OBJECT);
 
         if ($rul_levels) {
             foreach ($rul_levels as $rul_level) {
-                if ( ! empty($rul_level->rul_url) && Helpers::redirect_current_user_can($rul_level->rul_value, $user)) {
-                    return Helpers::rul_replace_variable($rul_level->rul_url, $user);
+                if ( ! empty($rul_level->rul_url) && self::redirect_current_user_can($rul_level->rul_value, $user)) {
+                    return self::rul_replace_variable($rul_level->rul_url, $user);
                 }
             }
         }
 
         $rul_custom_redirect = apply_filters('rul_before_fallback', false, $redirect_to, $requested_redirect_to, $user);
 
-        if ($rul_custom_redirect) return Helpers::rul_replace_variable($rul_custom_redirect, $user);
+        if ($rul_custom_redirect) return self::rul_replace_variable($rul_custom_redirect, $user);
 
         $rul_all = $wpdb->get_var('SELECT rul_url FROM ' . PTR_LOGINWP_DB_TABLE . ' WHERE rul_type = \'all\' LIMIT 1');
 
-        if ($rul_all) return Helpers::rul_replace_variable($rul_all, $user);
+        if ($rul_all) return self::rul_replace_variable($rul_all, $user);
 
         return $redirect_to;
     }
@@ -291,11 +291,11 @@ class Helpers
         // Check for a redirect rule for this user
         $rul_user = $wpdb->get_var('SELECT rul_url_logout FROM ' . PTR_LOGINWP_DB_TABLE . ' WHERE rul_type = \'user\' AND rul_value = \'' . $user->user_login . '\' LIMIT 1');
 
-        if ($rul_user) return Helpers::rul_replace_variable($rul_user, $user);
+        if ($rul_user) return self::rul_replace_variable($rul_user, $user);
 
         $rul_custom_redirect = apply_filters('rul_before_role_logout', false, $requested_redirect_to, $user);
 
-        if ( ! empty($rul_custom_redirect)) return Helpers::rul_replace_variable($rul_custom_redirect, $user);
+        if ( ! empty($rul_custom_redirect)) return self::rul_replace_variable($rul_custom_redirect, $user);
 
         // Check for a redirect rule that matches this user's role
         $rul_roles = $wpdb->get_results('SELECT rul_value, rul_url_logout FROM ' . PTR_LOGINWP_DB_TABLE . ' WHERE rul_type = \'role\' ORDER BY rul_order, rul_value', OBJECT);
@@ -304,7 +304,7 @@ class Helpers
 
             foreach ($rul_roles as $rul_role) {
                 if ('' != $rul_role->rul_url_logout && isset($user->{$wpdb->prefix . 'capabilities'}[$rul_role->rul_value])) {
-                    $url = Helpers::rul_replace_variable($rul_role->rul_url_logout, $user);
+                    $url = self::rul_replace_variable($rul_role->rul_url_logout, $user);
 
                     if ( ! empty($url)) return $url;
                 }
