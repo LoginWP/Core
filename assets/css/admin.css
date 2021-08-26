@@ -190,7 +190,8 @@
     color: #3d49b2;
 }
 
-.loginwp-admin.wp-core-ui .wrap .button-primary {
+.loginwp-admin.wp-core-ui .wrap .button-primary,
+.loginwp-admin.wp-core-ui .loginwp-view-placeholders-wrap .button-primary {
     background: #3C50FF;
     border-color: #3C50FF;
     color: #fff;

@@ -424,10 +424,9 @@ class RedirectionsPage extends AbstractSettingsPage
     public static function available_placeholders_structure()
     {
         $available_placeholders = apply_filters('loginwp_login_redirection_placeholders', [
-            'username'     => esc_html__('Username of user', 'peters-login-redirect'),
-            'user_slug'    => esc_html__('Author URL slug or user nicename', 'peters-login-redirect'),
-            'website_url'  => esc_html__('Website URL', 'peters-login-redirect'),
-            'http_referer' => esc_html__('HTTP referer URL', 'peters-login-redirect')
+            'username'    => esc_html__('Username of user', 'peters-login-redirect'),
+            'user_slug'   => esc_html__('Author URL slug or user nicename', 'peters-login-redirect'),
+            'website_url' => esc_html__('Website URL', 'peters-login-redirect')
         ]);
         ?>
         <div id="loginwp-view-placeholders" style="display:none;">
@@ -437,6 +436,20 @@ class RedirectionsPage extends AbstractSettingsPage
                         <strong>{{<?= esc_html($placeholder) ?>}}:</strong> <?= esc_html($description) ?>
                     </div>
                 <?php endforeach; ?>
+                <?php if ( ! defined('LOGINWP_DETACH_LIBSODIUM')) : ?>
+                    <?php $upsell_url = 'https://loginwp.com/pricing/?utm_source=wp_dashboard&utm_medium=upgrade&utm_campaign=login_redirect_placeholder_modal'; ?>
+                    <div class="loginwp-placeholder-upsell">
+                        <p>
+                            <?php printf(
+                                esc_html__('With %sLoginWP PRO%s, you can redirect users to the current page they are logging in from or the previous page before they are redirected to the login page.', 'peters-login-redirect'),
+                                '<a target="_blank" href="' . $upsell_url . '">', '</a>'
+                            ); ?>
+                        </p>
+                        <div>
+                            <a class="button-primary" href="<?= $upsell_url ?>" target="_blank"><?php esc_html_e('Upgrade to PRO', 'peters-login-redirect') ?></a>
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
         <?php

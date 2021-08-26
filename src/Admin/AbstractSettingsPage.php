@@ -118,6 +118,9 @@ abstract class AbstractSettingsPage
 
         $content .= '<ul>';
 
+        $content .= sprintf('<li>%s</li>', esc_html__('Redirect to referrer or previous page', 'peters-login-redirect'));
+        $content .= sprintf('<li>%s</li>', esc_html__('Redirect to currently viewing page', 'peters-login-redirect'));
+
         foreach ($integrations as $integration) :
             $content .= sprintf('<li>%s</li>', $integration);
         endforeach;

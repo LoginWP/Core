@@ -41,6 +41,8 @@ class Redirections
             return $rul_url;
         }
 
+        do_action('loginwp_after_login_redirect', $redirect_to, $user);
+
         return $redirect_to;
     }
 
