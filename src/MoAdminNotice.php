@@ -75,7 +75,7 @@ if ( ! class_exists( 'MO_Admin_Notice' ) ) {
                         </a>
                     <?php endif; ?>
                     <div class="mo-notice-learn-more">
-                        <a target="_blank" href="https://mailoptin.io">Learn more</a>
+                        <a target="_blank" href="https://mailoptin.io/">Learn more</a>
                     </div>
                 </div>
                 <a href="<?php echo $dismiss_url; ?>">
