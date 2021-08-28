@@ -34,7 +34,7 @@ add_action('add_meta_boxes', function () use ($ruleData) {
 do_action('add_meta_boxes', 'ptrloginwpredirection', '');
 
 ?>
-<div id="poststuff" style="padding-top: 0">
+<div style="padding-top: 0">
     <div id="post-body" class="metabox-holder">
 
         <div class="loginwp-rule-actions-wrap">

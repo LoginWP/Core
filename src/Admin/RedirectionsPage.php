@@ -63,19 +63,19 @@ class RedirectionsPage extends AbstractSettingsPage
         return apply_filters('rul_rule_conditions', [
             [
                 'id'            => 'user',
-                'label'         => esc_html__('Usernames', 'peters-login-redirect'),
+                'label'         => esc_html__('Username', 'peters-login-redirect'),
                 'options'       => Helpers::username_list(),
                 'order_support' => false
             ],
             [
                 'id'            => 'role',
-                'label'         => esc_html__('User Roles', 'peters-login-redirect'),
+                'label'         => esc_html__('User Role', 'peters-login-redirect'),
                 'options'       => Helpers::user_role_list(),
                 'order_support' => true
             ],
             [
                 'id'            => 'level',
-                'label'         => esc_html__('User Capabilities', 'peters-login-redirect'),
+                'label'         => esc_html__('User Capability', 'peters-login-redirect'),
                 'options'       => Helpers::capability_list(),
                 'order_support' => true
             ]
