@@ -236,15 +236,15 @@ class SettingsPageApi
      *
      * @return \WP_Error|Void
      */
-    public function persist_plugin_settings()
+    public function persist_plugin_settings($option_name = '')
     {
-        add_action('admin_notices', array($this, 'do_settings_errors'));
-
         if ( ! current_user_can('manage_options')) {
             return;
         }
 
-        if (empty($_POST['save_' . $this->option_name])) {
+        $option_name = !empty($option_name) ? $option_name : $this->option_name;
+
+        if (empty($_POST['save_' . $option_name])) {
             return;
         }
 
@@ -254,7 +254,7 @@ class SettingsPageApi
          * Use add_settings_error() to create/generate an errors add_settings_error('wp_csa_notice', '', 'an error');
          * in your validation function/class method hooked to this action.
          */
-        do_action('wp_cspa_validate_data', $_POST[$this->option_name]);
+        do_action('wp_cspa_validate_data', $_POST[$option_name]);
 
         $settings_error = get_settings_errors('wp_csa_notice');
         if ( ! empty($settings_error)) {
@@ -265,8 +265,8 @@ class SettingsPageApi
 
         $sanitized_data = apply_filters(
             'wp_cspa_santized_data',
-            call_user_func($sanitize_callable, $_POST[$this->option_name]),
-            $this->option_name
+            call_user_func($sanitize_callable, $_POST[$option_name]),
+            $option_name
         );
 
         // skip unchanged (with asterisk ** in its data) api key/token values.
@@ -276,13 +276,13 @@ class SettingsPageApi
             }
         }
 
-        do_action('wp_cspa_persist_settings', $sanitized_data, $this->option_name, $this);
+        do_action('wp_cspa_persist_settings', $sanitized_data, $option_name, $this);
 
         if ( ! apply_filters('wp_cspa_disable_default_persistence', false)) {
 
-           update_option($this->option_name, array_replace($this->db_options, $sanitized_data));
+           update_option($option_name, array_replace($this->db_options, $sanitized_data));
 
-            do_action('wp_cspa_after_persist_settings', $sanitized_data, $this->option_name);
+            do_action('wp_cspa_after_persist_settings', $sanitized_data, $option_name);
 
             wp_safe_redirect(esc_url_raw(add_query_arg('settings-updated', 'true')));
             exit;
@@ -1108,8 +1108,6 @@ public function _header($args)
      */
     public function build($exclude_sidebar = false, $exclude_top_tav_nav = false)
     {
-        $this->persist_plugin_settings();
-
         $this->exclude_top_tav_nav = $exclude_top_tav_nav;
 
         $columns2_class = ! $exclude_sidebar ? ' columns-2' : null;
@@ -1128,6 +1126,8 @@ public function _header($args)
             $this->remove_white_styling_css();
             $view_classes .= ' remove_white_styling';
         }
+
+        do_action('wp_cspa_before_settings_page_build',$this->option_name);
         ?>
         <div class="wrap<?=$wrap_classes?>">
             <?php $this->settings_page_heading(); ?>
@@ -1199,8 +1199,6 @@ public function _header($args)
                     $tab_content_area              .= '</div>';
                 }
             }
-
-            $this->persist_plugin_settings();
 
             echo '<div class="wrap ppview">';
             $this->settings_page_heading();
