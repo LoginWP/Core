@@ -3,7 +3,6 @@
 namespace LoginWP\Core\Redirections;
 
 use LoginWP\Core\Helpers;
-use LoginWP\Libsodium\Session\Session;
 
 class Redirections
 {
