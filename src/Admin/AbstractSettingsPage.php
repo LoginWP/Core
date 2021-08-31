@@ -108,12 +108,18 @@ abstract class AbstractSettingsPage
             'Ultimate Member',
             'WP User Frontend',
             'WP User Manager',
+            'Paid Membership Pro',
             'User Registration (WPEverest)',
             'Theme My Login'
         ];
 
+        $upsell_url = 'https://loginwp.com/pricing/?utm_source=wp_dashboard&utm_medium=upgrade&utm_campaign=sidebar_upsell';
+
         $content = '<p>';
-        $content .= esc_html__('Enhance the power of LoginWP with the Pro version featuring integrations with many plugins.', 'peters-login-redirect');
+        $content .= sprintf(
+            esc_html__('Enhance the power of LoginWP with the Pro version featuring integrations with many plugins. %sLearn more%s', 'peters-login-redirect'),
+            '<a target="_blank" href="' . $upsell_url . '">', '</a>'
+        );
         $content .= '</p>';
 
         $content .= '<ul>';
@@ -127,8 +133,7 @@ abstract class AbstractSettingsPage
 
         $content .= '</ul>';
 
-        $url     = 'https://loginwp.com/pricing/?utm_source=wp_dashboard&utm_medium=upgrade&utm_campaign=sidebar_upsell';
-        $content .= '<a href="' . $url . '" target="__blank" class="button-primary">' . esc_html__('Get LoginWP Pro →', 'peters-login-redirect') . '</a>';
+        $content .= '<a href="' . $upsell_url . '" target="__blank" class="button-primary">' . esc_html__('Get LoginWP Pro →', 'peters-login-redirect') . '</a>';
 
         return $content;
     }
