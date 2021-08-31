@@ -101,6 +101,7 @@ abstract class AbstractSettingsPage
             'Gravity Forms',
             'WPForms',
             'LearnDash',
+            'ProfilePress',
             'MemberPress',
             'Restrict Content Pro',
             'LifterLMS',
