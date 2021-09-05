@@ -129,12 +129,14 @@ class Core
 
         // Turn version into an integer for comparisons
         $current_version = intval(str_replace('.', '', get_option('rul_version')));
+        // necessary cos pro starts with version 4.
+        $cmp_current_version = str_replace('4.', '3.', $current_version);
 
-        if ($current_version < 220) {
+        if ($cmp_current_version < 220) {
             $wpdb->query("ALTER TABLE `$rul_db_addresses` ADD `rul_url_logout` LONGTEXT NOT NULL default '' AFTER `rul_url`");
         }
 
-        if ($current_version < 250) {
+        if ($cmp_current_version < 250) {
 
             $wpdb->query("ALTER TABLE `$rul_db_addresses` CHANGE `rul_type` `rul_type` ENUM( 'user', 'role', 'level', 'all', 'register' ) NOT NULL");
             $wpdb->insert($rul_db_addresses,
@@ -142,27 +144,23 @@ class Core
             );
         }
 
-        if ($current_version < 253) {
+        if ($cmp_current_version < 253) {
             // Allow NULL values for non-essential fields
             $wpdb->query("ALTER TABLE `$rul_db_addresses` CHANGE `rul_value` `rul_value` varchar(255) NULL default NULL");
             $wpdb->query("ALTER TABLE `$rul_db_addresses` CHANGE `rul_url` `rul_url` LONGTEXT NULL default NULL");
             $wpdb->query("ALTER TABLE `$rul_db_addresses` CHANGE `rul_url_logout` `rul_url_logout` LONGTEXT NULL default NULL");
         }
 
-        if ($current_version < 291) {
+        if ($cmp_current_version < 291) {
             // Reduce size of rul_value field to support utf8mb4 character encoding
             $wpdb->query("ALTER TABLE `$rul_db_addresses` CHANGE `rul_value` `rul_value` varchar(191) NULL default NULL");
         }
 
-        if ($current_version < 300) {
+        if ($cmp_current_version < 3000) {
             $wpdb->query("ALTER TABLE $rul_db_addresses ADD id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT FIRST");
         }
 
-        if ($current_version != intval(str_replace('.', '', PTR_LOGINWP_VERSION_NUMBER))) {
-            // Add the version number to the database
-            delete_option('rul_version');
-            add_option('rul_version', PTR_LOGINWP_VERSION_NUMBER, '', 'no');
-        }
+        update_option('rul_version', PTR_LOGINWP_VERSION_NUMBER, 'no');
 
         add_option('loginwp_install_date', current_time('mysql'));
     }
