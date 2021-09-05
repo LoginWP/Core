@@ -311,8 +311,8 @@ class RedirectionsPage extends AbstractSettingsPage
             $result = $wpdb->insert(
                 PTR_LOGINWP_DB_TABLE,
                 [
-                    'rul_url'        => esc_url_raw($_POST['rul_login_url']),
-                    'rul_url_logout' => esc_url_raw($_POST['rul_logout_url']),
+                    'rul_url'        => sanitize_text_field($_POST['rul_login_url']),
+                    'rul_url_logout' => sanitize_text_field($_POST['rul_logout_url']),
                     'rul_type'       => $type,
                     'rul_value'      => $typeValue,
                     'rul_order'      => $order
