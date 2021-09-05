@@ -1,38 +1,42 @@
 <?php
 
-if ( ! class_exists( 'MO_Admin_Notice' ) ) {
+if ( ! class_exists('MO_Admin_Notice')) {
 
-    class MO_Admin_Notice {
-        public function __construct() {
-            add_action( 'admin_notices', array( $this, 'admin_notice' ) );
-            add_action( 'network_admin_notices', array( $this, 'admin_notice' ) );
+    class MO_Admin_Notice
+    {
+        public function __construct()
+        {
+            add_action('admin_notices', array($this, 'admin_notice'));
+            add_action('network_admin_notices', array($this, 'admin_notice'));
 
-            add_action( 'admin_init', array( $this, 'dismiss_admin_notice' ) );
+            add_action('admin_init', array($this, 'dismiss_admin_notice'));
         }
 
-        public function dismiss_admin_notice() {
-            if ( ! isset( $_GET['mo-adaction'] ) || $_GET['mo-adaction'] != 'mo_dismiss_adnotice' ) {
+        public function dismiss_admin_notice()
+        {
+            if ( ! isset($_GET['mo-adaction']) || $_GET['mo-adaction'] != 'mo_dismiss_adnotice') {
                 return;
             }
 
             $url = admin_url();
-            update_option( 'mo_dismiss_adnotice', 'true' );
+            update_option('mo_dismiss_adnotice', 'true');
 
-            wp_redirect( $url );
+            wp_redirect($url);
             exit;
         }
 
-        public function admin_notice() {
+        public function admin_notice()
+        {
 
             global $pagenow;
 
-            if($pagenow != 'index.php') return;
+            if ($pagenow != 'index.php') return;
 
-            if ( get_option( 'mo_dismiss_adnotice', 'false' ) == 'true' ) {
+            if (get_option('mo_dismiss_adnotice', 'false') == 'true') {
                 return;
             }
 
-            if ( $this->is_plugin_installed() && $this->is_plugin_active() ) {
+            if ($this->is_plugin_installed() && $this->is_plugin_active()) {
                 return;
             }
 
@@ -46,11 +50,11 @@ if ( ! class_exists( 'MO_Admin_Notice' ) ) {
             );
             $this->notice_css();
             $install_url = wp_nonce_url(
-                admin_url( 'update.php?action=install-plugin&plugin=mailoptin' ),
+                admin_url('update.php?action=install-plugin&plugin=mailoptin'),
                 'install-plugin_mailoptin'
             );
 
-            $activate_url = wp_nonce_url( admin_url( 'plugins.php?action=activate&plugin=mailoptin%2Fmailoptin.php' ), 'activate-plugin_mailoptin/mailoptin.php' );
+            $activate_url = wp_nonce_url(admin_url('plugins.php?action=activate&plugin=mailoptin%2Fmailoptin.php'), 'activate-plugin_mailoptin/mailoptin.php');
             ?>
             <div class="mo-admin-notice notice notice-success">
                 <div class="mo-notice-first-half">
@@ -66,12 +70,12 @@ if ( ! class_exists( 'MO_Admin_Notice' ) ) {
                 <div class="mo-notice-other-half">
                     <?php if ( ! $this->is_plugin_installed()) : ?>
                         <a class="button button-primary button-hero" id="mo-install-mailoptin-plugin" href="<?php echo $install_url; ?>">
-                            <?php _e('Install MailOptin Now for Free!','peters-login-redirect'); ?>
+                            <?php _e('Install MailOptin Now for Free!', 'peters-login-redirect'); ?>
                         </a>
                     <?php endif; ?>
                     <?php if ($this->is_plugin_installed() && ! $this->is_plugin_active()) : ?>
                         <a class="button button-primary button-hero" id="mo-activate-mailoptin-plugin" href="<?php echo $activate_url; ?>">
-                            <?php _e('Activate MailOptin Now!','peters-login-redirect'); ?>
+                            <?php _e('Activate MailOptin Now!', 'peters-login-redirect'); ?>
                         </a>
                     <?php endif; ?>
                     <div class="mo-notice-learn-more">
@@ -87,30 +91,34 @@ if ( ! class_exists( 'MO_Admin_Notice' ) ) {
             <?php
         }
 
-        public function current_admin_url() {
-            $parts = parse_url( home_url() );
+        public function current_admin_url()
+        {
+            $parts = parse_url(home_url());
             $uri   = $parts['scheme'] . '://' . $parts['host'];
 
-            if ( array_key_exists( 'port', $parts ) ) {
+            if (array_key_exists('port', $parts)) {
                 $uri .= ':' . $parts['port'];
             }
 
-            $uri .= add_query_arg( array() );
+            $uri .= add_query_arg(array());
 
             return $uri;
         }
 
-        public function is_plugin_installed() {
+        public function is_plugin_installed()
+        {
             $installed_plugins = get_plugins();
 
-            return isset( $installed_plugins['mailoptin/mailoptin.php'] );
+            return isset($installed_plugins['mailoptin/mailoptin.php']);
         }
 
-        public function is_plugin_active() {
-            return is_plugin_active( 'mailoptin/mailoptin.php' );
+        public function is_plugin_active()
+        {
+            return is_plugin_active('mailoptin/mailoptin.php');
         }
 
-        public function notice_css() {
+        public function notice_css()
+        {
             ?>
             <style type="text/css">
                 .mo-admin-notice {
@@ -164,10 +172,11 @@ if ( ! class_exists( 'MO_Admin_Notice' ) ) {
             <?php
         }
 
-        public static function instance() {
+        public static function instance()
+        {
             static $instance = null;
 
-            if ( is_null( $instance ) ) {
+            if (is_null($instance)) {
                 $instance = new self();
             }
 

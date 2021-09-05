@@ -26,7 +26,6 @@ class Core
     public function __construct()
     {
         register_activation_hook(PTR_LOGINWP_SYSTEM_FILE_PATH, [__CLASS__, 'rul_activate_plugin']);
-        register_uninstall_hook(PTR_LOGINWP_SYSTEM_FILE_PATH, [__CLASS__, 'rul_uninstall_plugin']);
         add_filter('wpmu_drop_tables', [$this, 'rul_drop_tables']);
         add_action('activate_blog', [$this, 'rul_site_added']);
 
@@ -85,20 +84,6 @@ class Core
         self::rul_upgrade();
     }
 
-    public static function rul_uninstall()
-    {
-        global $wpdb;
-
-        // Remove the table we created
-        if (PTR_LOGINWP_DB_TABLE == $wpdb->get_var('SHOW TABLES LIKE \'' . PTR_LOGINWP_DB_TABLE . '\'')) {
-            $sql = 'DROP TABLE ' . PTR_LOGINWP_DB_TABLE;
-            $wpdb->query($sql);
-        }
-
-        delete_option('rul_version');
-        delete_option('rul_settings');
-    }
-
     public static function rul_activate_plugin($networkwide)
     {
         // Executes when plugin is activated
@@ -113,22 +98,6 @@ class Core
             }
         } else {
             self::rul_install();
-        }
-    }
-
-    public static function rul_uninstall_plugin()
-    {
-        // Executes when plugin is deleted
-        global $wpdb;
-        if (function_exists('is_multisite') && is_multisite()) {
-            $blogs = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
-            foreach ($blogs as $blog) {
-                switch_to_blog($blog);
-                self::rul_uninstall();
-                restore_current_blog();
-            }
-        } else {
-            self::rul_uninstall();
         }
     }
 
