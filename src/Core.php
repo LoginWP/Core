@@ -79,6 +79,7 @@ class Core
             add_option('rul_version', PTR_LOGINWP_VERSION_NUMBER, '', 'no');
         }
 
+        add_option('loginwp_from_ab_initio', 'true');
         add_option('loginwp_install_date', current_time('mysql'));
 
         self::rul_upgrade();
@@ -193,6 +194,8 @@ class Core
             delete_option('rul_version');
             add_option('rul_version', PTR_LOGINWP_VERSION_NUMBER, '', 'no');
         }
+
+        add_option('loginwp_install_date', current_time('mysql'));
     }
 
     public static function get_instance()

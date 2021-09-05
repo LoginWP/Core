@@ -49,6 +49,7 @@ class Admin
         add_filter('admin_body_class', [$this, 'add_admin_body_class']);
 
         add_action('admin_notices', [$this, 'review_plugin_notice']);
+        add_action('admin_notices', [$this, 'ptlr_is_now_loginwp_notice']);
     }
 
     public function act_on_request()
@@ -57,6 +58,10 @@ class Admin
 
             if ($_GET['loginwp_admin_action'] == 'dismiss_leave_review_forever') {
                 PAnD::set_admin_notice_cache('loginwp-review-plugin-notice', 'forever');
+            }
+
+            if ($_GET['loginwp_admin_action'] == 'dismiss_ptlr_now_loginwp') {
+                PAnD::set_admin_notice_cache('ptlr_is_now_loginwp_notice', 'forever');
             }
 
             wp_safe_redirect(esc_url_raw(remove_query_arg('loginwp_admin_action')));
@@ -156,6 +161,25 @@ class Admin
         return (array)$links;
     }
 
+    public function ptlr_is_now_loginwp_notice()
+    {
+        if ( ! PAnD::is_admin_notice_active('ptlr_is_now_loginwp_notice-forever')) return;
+
+        if (get_option('loginwp_from_ab_initio', false) == 'true') return;
+
+        $dismiss_url = esc_url(add_query_arg('loginwp_admin_action', 'dismiss_ptlr_now_loginwp'));
+
+        $notice = sprintf(
+            __('Important news! %1$sPeters Login Redirect%2$s has been rebranded to %1$sLoginWP%2$s with a new UI. %3$sCheck It Out%5$s | %4$sDismiss Notice%5$s', 'peters-login-redirect'),
+            '<strong>', '</strong>',
+            '<a href="' . PTR_LOGINWP_REDIRECTIONS_PAGE_URL . '">', '<a href="' . $dismiss_url . '">', '</a>'
+        );
+
+        echo '<div data-dismissible="ptlr_is_now_loginwp_notice-forever" class="notice notice-warning is-dismissible">';
+        echo "<p>$notice</p>";
+        echo '</div>';
+    }
+
     /**
      * Display one-time admin notice to review plugin at least 7 days after installation
      */
@@ -176,7 +200,7 @@ class Admin
         $dismiss_url = esc_url_raw(add_query_arg('loginwp_admin_action', 'dismiss_leave_review_forever'));
 
         $notice = sprintf(
-            __('Hey, I noticed you have been using LoginWP for at least 7 days now - that\'s awesome! Could you please do me a BIG favor and give it a %1$s5-star rating on WordPress?%2$s This will help us spread the word and boost our motivation - thanks!', 'peters-login-redirect'),
+            __('Hey, I noticed you have been using LoginWP (Formerly Peter\'s Login Redirect) for a while now - that\'s awesome! Could you please do me a BIG favor and give it a %1$s5-star rating on WordPress?%2$s This will help us spread the word and boost our motivation - thanks!', 'peters-login-redirect'),
             '<a href="' . $review_url . '" target="_blank">',
             '</a>'
         );
