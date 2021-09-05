@@ -53,11 +53,13 @@ class Core
         // Add the table to hold group information and moderator rules
         if ($rul_db_addresses != $wpdb->get_var("SHOW TABLES LIKE '$rul_db_addresses'")) {
             $sql = "CREATE TABLE $rul_db_addresses (
+            `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
             `rul_type` enum('user','role','level','all','register') NOT NULL,
             `rul_value` varchar(191) NULL default NULL,
             `rul_url` LONGTEXT NULL default NULL,
             `rul_url_logout` LONGTEXT NULL default NULL,
             `rul_order` int(2) NOT NULL default '0',
+            PRIMARY KEY (id),
             UNIQUE KEY `rul_type` (`rul_type`,`rul_value`)
             )";
 
