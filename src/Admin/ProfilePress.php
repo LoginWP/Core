@@ -192,7 +192,7 @@ class ProfilePress
             $this->get_js_strings()
         );
 
-        \wp_localize_script('loginwp-admin-page-ppress', 'loginwp_globals', [
+        \wp_localize_script('loginwp-admin-page-ppress', 'loginwp_installer_globals', [
             'nonce' => wp_create_nonce('loginwp-admin-nonce')
         ]);
     }

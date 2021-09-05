@@ -201,10 +201,10 @@ class Helpers
         $rul_settings = array();
 
         // Allow a POST or GET "redirect_to" variable to take precedence over settings within the plugin
-        $rul_settings['rul_allow_post_redirect_override'] = false;
+        $rul_settings['rul_allow_post_redirect_override'] = '0';
 
         // Allow a POST or GET logout "redirect_to" variable to take precedence over settings within the plugin
-        $rul_settings['rul_allow_post_redirect_override_logout'] = false;
+        $rul_settings['rul_allow_post_redirect_override_logout'] = '0';
 
         $db_data = get_option('rul_settings', []);
 

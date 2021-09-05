@@ -1,4 +1,4 @@
-/* global loginwp_pluginlanding, loginwp_globals */
+/* global loginwp_pluginlanding, loginwp_installer_globals */
 
 'use strict';
 
@@ -73,7 +73,7 @@ var LoginWPPagesProfilePress = window.LoginWPPagesProfilePress || (function (doc
 
             var data = {
                 action: ajaxAction,
-                nonce: loginwp_globals.nonce,
+                nonce: loginwp_installer_globals.nonce,
                 plugin: plugin,
                 type: 'plugin',
             };
@@ -113,7 +113,7 @@ var LoginWPPagesProfilePress = window.LoginWPPagesProfilePress || (function (doc
 
             var data = {
                 action: 'loginwp_profilepress_page_check_plugin_status',
-                nonce: loginwp_globals.nonce,
+                nonce: loginwp_installer_globals.nonce,
             };
             $.post(ajaxurl, data)
                 .done(app.stepInstallPluginStatusDone);
