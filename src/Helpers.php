@@ -66,7 +66,9 @@ class Helpers
 
         // Builds the array of level names by combing through each of the roles and listing their levels
         foreach ($wp_roles->roles as $wp_role) {
-            $caps = array_merge($caps, array_keys($wp_role['capabilities']));
+            if (isset($wp_role['capabilities']) && is_array($wp_role['capabilities'])) {
+                $caps = array_merge($caps, array_keys($wp_role['capabilities']));
+            }
         }
 
         $caps = array_unique($caps);
