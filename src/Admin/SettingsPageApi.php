@@ -1224,7 +1224,7 @@ public function _header($args)
     }
 
     /**
-     * Custom_Settings_Page_Api
+     * Do not make this a singleton
      *
      * @param array $main_content_config
      * @param string $option_name
@@ -1234,12 +1234,6 @@ public function _header($args)
      */
     public static function instance($main_content_config = [], $option_name = '', $page_header = '')
     {
-        static $instance = null;
-
-        if (is_null($instance)) {
-            $instance = new self($main_content_config, $option_name, $page_header);
-        }
-
-        return $instance;
+        return new self($main_content_config, $option_name, $page_header);
     }
 }

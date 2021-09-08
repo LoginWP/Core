@@ -23,6 +23,8 @@ class Admin
 
         add_filter('plugin_row_meta', array(__CLASS__, 'plugin_row_meta'), 10, 2);
 
+        add_filter('removable_query_args', array($this, 'removable_query_args'));
+
         if (class_exists('PAnD')) {
             // persist admin notice dismissal initialization
             add_action('admin_init', array('PAnD', 'init'));
@@ -215,6 +217,16 @@ class Admin
         echo '<div data-dismissible="loginwp-review-plugin-notice-forever" class="update-nag notice notice-warning is-dismissible">';
         echo "<p>$notice</p>";
         echo '</div>';
+    }
+
+
+
+    public function removable_query_args($args)
+    {
+        $args[] = 'license-settings-updated';
+        $args[] = 'license';
+
+        return $args;
     }
 
     /**

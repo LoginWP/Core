@@ -4,7 +4,7 @@ namespace LoginWP\Core\Admin;
 
 class SettingsPage extends AbstractSettingsPage
 {
-    protected $spage_instance;
+    protected $settings_page_instance;
 
     public function __construct()
     {
@@ -12,10 +12,9 @@ class SettingsPage extends AbstractSettingsPage
 
         add_action('loginwp_admin_settings_page_general', [$this, 'settings_page_callback']);
 
-
-        $this->spage_instance = SettingsPageApi::instance();
-        $this->spage_instance->option_name('loginwp_settings');
-        add_action('admin_init', [$this->spage_instance, 'persist_plugin_settings']);
+        $this->settings_page_instance = SettingsPageApi::instance();
+        $this->settings_page_instance->option_name('loginwp_settings');
+        add_action('admin_init', [$this->settings_page_instance, 'persist_plugin_settings']);
     }
 
     public function register_menu_page()
@@ -70,12 +69,12 @@ class SettingsPage extends AbstractSettingsPage
             ]
         ];
 
-        $this->spage_instance->page_header(esc_html__('General', 'peters-login-redirect'));
-        $this->spage_instance->sidebar(AbstractSettingsPage::sidebar_args());
-        $this->spage_instance->remove_white_design();
-        $this->spage_instance->header_without_frills();
-        $this->spage_instance->main_content($settings);
-        $this->spage_instance->build();
+        $this->settings_page_instance->page_header(esc_html__('General', 'peters-login-redirect'));
+        $this->settings_page_instance->sidebar(AbstractSettingsPage::sidebar_args());
+        $this->settings_page_instance->remove_white_design();
+        $this->settings_page_instance->header_without_frills();
+        $this->settings_page_instance->main_content($settings);
+        $this->settings_page_instance->build();
     }
 
     public static function get_instance()

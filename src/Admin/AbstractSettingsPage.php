@@ -18,7 +18,7 @@ abstract class AbstractSettingsPage
     public function settings_page_header($active_menu)
     {
         $logo_url       = PTR_LOGINWP_ASSETS_URL . 'images/loginwp.png';
-        $submenus_count = $menus = count($this->header_menu_tabs());
+        $submenus_count = count($this->header_menu_tabs());
         ?>
         <div class="loginwp-admin-banner<?= defined('LOGINWP_DETACH_LIBSODIUM') ? ' loginwp-pro' : '' ?><?= $submenus_count < 2 ? ' loginwp-no-submenu' : '' ?>">
             <div class="loginwp-admin-banner__logo">
@@ -56,7 +56,7 @@ abstract class AbstractSettingsPage
         <div class="loginwp-header-menus">
             <nav class="loginwp-nav-tab-wrapper nav-tab-wrapper">
                 <?php foreach ($menus as $id => $menu) : ?>
-                    <a href="<?php echo add_query_arg('tab', $id, PTR_LOGINWP_REDIRECTIONS_PAGE_URL); ?>" class="loginwp-nav-tab nav-tab<?= $id == $active_menu ? ' loginwp-nav-active' : '' ?>">
+                    <a href="<?php echo esc_url(remove_query_arg(wp_removable_query_args(), add_query_arg('tab', $id))); ?>" class="loginwp-nav-tab nav-tab<?= $id == $active_menu ? ' loginwp-nav-active' : '' ?>">
                         <?php echo $menu ?>
                     </a>
                 <?php endforeach; ?>
