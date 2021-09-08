@@ -35,11 +35,11 @@ class RedirectionsPage extends AbstractSettingsPage
         }
 
         $hook = add_submenu_page(
-            PTR_LOGINWP_ADMIN_PAGE_SLUG,
+            PTR_LOGINWP_SETTINGS_PAGE_SLUG,
             $page_title,
             __('Redirections', 'peters-login-redirect'),
             'manage_options',
-            PTR_LOGINWP_ADMIN_PAGE_SLUG,
+            PTR_LOGINWP_REDIRECTION_PAGE_SLUG,
             [$this, 'admin_page_callback']
         );
 
@@ -87,7 +87,7 @@ class RedirectionsPage extends AbstractSettingsPage
      */
     public function screen_option()
     {
-        if (loginwp_var($_GET, 'page') != PTR_LOGINWP_ADMIN_PAGE_SLUG || (isset($_GET['tab']) && $_GET['tab'] != 'rules')) {
+        if (loginwp_var($_GET, 'page') != PTR_LOGINWP_REDIRECTION_PAGE_SLUG || (isset($_GET['tab']) && $_GET['tab'] != 'rules')) {
             add_filter('screen_options_show_screen', '__return_false');
         }
 
@@ -223,7 +223,7 @@ class RedirectionsPage extends AbstractSettingsPage
 
     public function save_redirect_rule_changes()
     {
-        if (isset($_GET['page'], $_GET['saved']) && PTR_LOGINWP_ADMIN_PAGE_SLUG == $_GET['page']) {
+        if (isset($_GET['page'], $_GET['saved']) && PTR_LOGINWP_REDIRECTION_PAGE_SLUG == $_GET['page']) {
 
             $message = esc_html__('Redirect rule saved successfully', 'peters-login-redirect');
 
@@ -234,7 +234,7 @@ class RedirectionsPage extends AbstractSettingsPage
             $this->trigger_admin_notices($message, 'success');
         }
 
-        if (isset($_GET['page'], $_GET['deleted']) && PTR_LOGINWP_ADMIN_PAGE_SLUG == $_GET['page']) {
+        if (isset($_GET['page'], $_GET['deleted']) && PTR_LOGINWP_REDIRECTION_PAGE_SLUG == $_GET['page']) {
 
             $this->trigger_admin_notices(
                 esc_html__('Redirect rule deleted', 'peters-login-redirect'),

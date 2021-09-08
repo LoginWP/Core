@@ -8,6 +8,7 @@ class Admin
 {
     public function __construct()
     {
+        SettingsPage::get_instance();
         RedirectionsPage::get_instance();
 
         add_action('admin_enqueue_scripts', array($this, 'admin_assets'));
@@ -33,10 +34,10 @@ class Admin
     public function register_core_menu()
     {
         add_menu_page(
-            __('LoginWP Redirections', 'peters-login-redirect'),
+            __('Settings – LoginWP', 'peters-login-redirect'),
             __('LoginWP', 'peters-login-redirect'),
             'manage_options',
-            PTR_LOGINWP_ADMIN_PAGE_SLUG,
+            PTR_LOGINWP_SETTINGS_PAGE_SLUG,
             '',
             $this->getMenuIcon(),
             '80.0015'

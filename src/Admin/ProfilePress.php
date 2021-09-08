@@ -68,7 +68,7 @@ class ProfilePress
         // Prepare variables.
         $url = esc_url_raw(
             add_query_arg(
-                ['page' => 'loginwp-settings'],
+                ['page' => 'loginwp-redirections'],
                 admin_url('admin.php')
             )
         );
@@ -167,7 +167,7 @@ class ProfilePress
     public function register_settings_page()
     {
         add_submenu_page(
-            PTR_LOGINWP_ADMIN_PAGE_SLUG,
+            PTR_LOGINWP_SETTINGS_PAGE_SLUG,
             'Login Forms',
             esc_html__('Login Forms', 'peters-login-redirect'),
             'manage_options',
