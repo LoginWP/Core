@@ -60,10 +60,10 @@ class SettingsPage extends AbstractSettingsPage
     {
         $settings = [
             [
-                [
-                    'label'          => esc_html__('Remove Data on Uninstall?', 'peters-login-redirect'),
+                'remove_plugin_data' => [
+                    'label'          => esc_html__('Remove Data on Uninstall', 'peters-login-redirect'),
                     'checkbox_label' => esc_html__('Activate', 'peters-login-redirect'),
-                    'description' => esc_html__('Check this box if you would like LoginWP to completely remove all of its data when uninstalled.', 'peters-login-redirect'),
+                    'description'    => esc_html__('Check this box if you would like LoginWP to completely remove all of its data when uninstalled.', 'peters-login-redirect'),
                     'type'           => 'checkbox',
                 ]
             ]
