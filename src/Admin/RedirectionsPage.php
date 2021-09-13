@@ -343,8 +343,8 @@ class RedirectionsPage extends AbstractSettingsPage
 
             global $wpdb;
 
-            $address        = esc_url_raw($_POST['rul_all']);
-            $address_logout = esc_url_raw($_POST['rul_all_logout']);
+            $address        = sanitize_text_field($_POST['rul_all']);
+            $address_logout = sanitize_text_field($_POST['rul_all_logout']);
 
             $update = $wpdb->update(
                 PTR_LOGINWP_DB_TABLE,
@@ -441,7 +441,7 @@ class RedirectionsPage extends AbstractSettingsPage
                     <div class="loginwp-placeholder-upsell">
                         <p>
                             <?php printf(
-                                esc_html__('With %sLoginWP PRO%s, you can redirect users to the current page they are logging in from or the previous page before they are redirected to the login page.', 'peters-login-redirect'),
+                                esc_html__('With %sLoginWP PRO%s, you can redirect users to the current page they are logging in from or back to the previous (referrer) page after login.', 'peters-login-redirect'),
                                 '<a target="_blank" href="' . $upsell_url . '">', '</a>'
                             ); ?>
                         </p>

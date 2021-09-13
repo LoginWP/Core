@@ -30,7 +30,7 @@ $modal_title = esc_html__('View Available Placeholders', 'peters-login-redirect'
                 <th scope="row"><label for="rul_all"><?php _e('Login URL:', 'peters-login-redirect') ?></label>
                 </th>
                 <td>
-                    <input id="rul_all" class="regular-text" type="text" size="90" maxlength="500" name="rul_all" value="<?php echo esc_url($rul_allvalue); ?>"/>
+                    <input id="rul_all" class="regular-text" type="text" size="90" maxlength="500" name="rul_all" value="<?php echo esc_attr($rul_allvalue); ?>"/>
                 </td>
             </tr>
             <tr>
@@ -38,7 +38,7 @@ $modal_title = esc_html__('View Available Placeholders', 'peters-login-redirect'
                     <label for="rul_all_logout"><?php _e('Logout URL:', 'peters-login-redirect') ?></label>
                 </th>
                 <td>
-                    <input id="rul_all_logout" class="regular-text" type="text" size="90" maxlength="500" name="rul_all_logout" value="<?php echo esc_url($rul_allvalue_logout); ?>"/>
+                    <input id="rul_all_logout" class="regular-text" type="text" size="90" maxlength="500" name="rul_all_logout" value="<?php echo esc_attr($rul_allvalue_logout); ?>"/>
                 </td>
             </tr>
             </tbody>
@@ -64,7 +64,7 @@ $modal_title = esc_html__('View Available Placeholders', 'peters-login-redirect'
                     <label for="rul_register"><?php _e('URL:', 'peters-login-redirect') ?></label>
                 </th>
                 <td>
-                    <input id="rul_register" class="regular-text" type="text" size="90" maxlength="500" name="rul_register" value="<?php echo esc_url($after_registration); ?>"/>
+                    <input id="rul_register" class="regular-text" type="text" size="90" maxlength="500" name="rul_register" value="<?php echo esc_attr($after_registration); ?>"/>
                 </td>
             </tr>
             </tbody>
