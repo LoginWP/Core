@@ -111,7 +111,7 @@ function loginwp_get_current_url_query_string()
 
 function redirect_to_front_page($redirect_to, $requested_redirect_to, $user)
 {
-    Helpers::login_redirect_logic_callback($redirect_to, $requested_redirect_to, $user);
+    return Helpers::login_redirect_logic_callback($redirect_to, $requested_redirect_to, $user);
 }
 
 function wplogin_redirect_control_function()
