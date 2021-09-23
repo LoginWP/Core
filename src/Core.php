@@ -59,8 +59,7 @@ class Core
             `rul_url` LONGTEXT NULL default NULL,
             `rul_url_logout` LONGTEXT NULL default NULL,
             `rul_order` int(2) NOT NULL default '0',
-            PRIMARY KEY (id),
-            UNIQUE KEY `rul_type` (`rul_type`,`rul_value`)
+            PRIMARY KEY (id)
             )";
 
             $wpdb->query($sql);
@@ -127,11 +126,10 @@ class Core
         global $wpdb;
 
         $rul_db_addresses = PTR_LOGINWP_DB_TABLE;
-
-        // Turn version into an integer for comparisons
-        $current_version = intval(str_replace('.', '', get_option('rul_version')));
         // necessary cos pro starts with version 4.
-        $cmp_current_version = str_replace('4.', '3.', $current_version);
+        $cmp_current_version = str_replace('4.', '3.', get_option('rul_version'));
+        // Turn version into an integer for comparisons
+        $cmp_current_version = intval(str_replace('.', '', $cmp_current_version));
 
         if ($cmp_current_version < 220) {
             $wpdb->query("ALTER TABLE `$rul_db_addresses` ADD `rul_url_logout` LONGTEXT NOT NULL default '' AFTER `rul_url`");
@@ -159,6 +157,10 @@ class Core
 
         if ($cmp_current_version < 3000) {
             $wpdb->query("ALTER TABLE $rul_db_addresses ADD id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT FIRST");
+        }
+
+        if ($cmp_current_version < 3003) {
+            $wpdb->query("ALTER TABLE $rul_db_addresses DROP INDEX rul_type");
         }
 
         update_option('rul_version', PTR_LOGINWP_VERSION_NUMBER, 'no');
