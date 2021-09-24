@@ -48,7 +48,8 @@ class Core
     {
         global $wpdb;
 
-        $rul_db_addresses = PTR_LOGINWP_DB_TABLE;
+        // important we don't use PTR_LOGINWP_DB_TABLE, rather call $wpdb->prefix . 'table name'
+        $rul_db_addresses = $wpdb->prefix . 'login_redirects';
 
         // Add the table to hold group information and moderator rules
         if ($rul_db_addresses != $wpdb->get_var("SHOW TABLES LIKE '$rul_db_addresses'")) {
@@ -114,7 +115,9 @@ class Core
 
     public function rul_drop_tables($tables)
     {
-        $tables[] = PTR_LOGINWP_DB_TABLE;
+        global $wpdb;
+
+        $tables[] = $wpdb->prefix . 'login_redirects';
 
         return $tables;
     }
@@ -125,7 +128,9 @@ class Core
     {
         global $wpdb;
 
-        $rul_db_addresses = PTR_LOGINWP_DB_TABLE;
+        // important we don't use PTR_LOGINWP_DB_TABLE, rather call $wpdb->prefix . 'table name'
+        $rul_db_addresses = $wpdb->prefix . 'login_redirects';
+
         // necessary cos pro starts with version 4.
         $cmp_current_version = str_replace('4.', '3.', get_option('rul_version'));
         // Turn version into an integer for comparisons
