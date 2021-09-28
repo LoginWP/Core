@@ -6,7 +6,8 @@ global $wpdb;
 
 use LoginWP\Core\Redirections\Redirections;
 
-define('PTR_LOGINWP_DB_TABLE', $wpdb->prefix . 'login_redirects');
+define('PTR_LOGINWP_DB_TABLE_NAME', 'login_redirects');
+define('PTR_LOGINWP_DB_TABLE', $wpdb->prefix . PTR_LOGINWP_DB_TABLE_NAME);
 define('PTR_LOGINWP_SETTINGS_PAGE_SLUG', 'loginwp-settings');
 define('PTR_LOGINWP_REDIRECTION_PAGE_SLUG', 'loginwp-redirections');
 define('PTR_LOGINWP_REDIRECTIONS_PAGE_URL', admin_url('admin.php?page=' . PTR_LOGINWP_REDIRECTION_PAGE_SLUG));
@@ -49,7 +50,7 @@ class Core
         global $wpdb;
 
         // important we don't use PTR_LOGINWP_DB_TABLE, rather call $wpdb->prefix . 'table name'
-        $rul_db_addresses = $wpdb->prefix . 'login_redirects';
+        $rul_db_addresses = $wpdb->prefix . PTR_LOGINWP_DB_TABLE_NAME;
 
         // Add the table to hold group information and moderator rules
         if ($rul_db_addresses != $wpdb->get_var("SHOW TABLES LIKE '$rul_db_addresses'")) {
@@ -117,7 +118,7 @@ class Core
     {
         global $wpdb;
 
-        $tables[] = $wpdb->prefix . 'login_redirects';
+        $tables[] = $wpdb->prefix . PTR_LOGINWP_DB_TABLE_NAME;
 
         return $tables;
     }
@@ -129,7 +130,7 @@ class Core
         global $wpdb;
 
         // important we don't use PTR_LOGINWP_DB_TABLE, rather call $wpdb->prefix . 'table name'
-        $rul_db_addresses = $wpdb->prefix . 'login_redirects';
+        $rul_db_addresses = $wpdb->prefix . PTR_LOGINWP_DB_TABLE_NAME;
 
         // necessary cos pro starts with version 4.
         $cmp_current_version = str_replace('4.', '3.', get_option('rul_version'));
