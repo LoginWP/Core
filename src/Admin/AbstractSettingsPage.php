@@ -103,6 +103,7 @@ abstract class AbstractSettingsPage
             'LearnDash',
             'ProfilePress',
             'MemberPress',
+            'MemberMouse',
             'Restrict Content Pro',
             'LifterLMS',
             'Easy Digital Downloads',
