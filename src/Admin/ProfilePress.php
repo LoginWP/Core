@@ -674,7 +674,7 @@ class ProfilePress
      */
     protected function is_activated()
     {
-        return class_exists('ProfilePress\Core\Base');
+        return class_exists('\ProfilePress\Core\Base');
     }
 
     public function redirect_to_ppress_settings()

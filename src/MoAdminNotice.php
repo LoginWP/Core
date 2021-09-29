@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists('MO_Admin_Notice')) {
+if ( ! class_exists('\MO_Admin_Notice')) {
 
     class MO_Admin_Notice
     {
