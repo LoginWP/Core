@@ -8,9 +8,17 @@ class Redirections
 {
     public function __construct()
     {
+        add_action('init', [$this, 'login_redirect_url']);
         add_filter('login_redirect', [__CLASS__, 'login_redirect_callback'], 999999999, 3);
         add_filter('registration_redirect', [__CLASS__, 'registration_redirect_callback'], 10, 2);
         add_filter('logout_redirect', [__CLASS__, 'logout_redirect'], 999999999, 3);
+    }
+
+    public function login_redirect_url()
+    {
+        if(isset($_GET['loginwp_link_redirect'])) {
+            wplogin_redirect_control_function();
+        }
     }
 
     public static function login_redirect_callback($redirect_to, $requested_redirect_to, $user)
