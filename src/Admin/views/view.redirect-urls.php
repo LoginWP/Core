@@ -18,7 +18,7 @@ $modal_title = esc_html__('View Available Placeholders', 'peters-login-redirect'
                 <label for="rul_login_url"><?= esc_html__('Login URL', 'peters-login-redirect') ?></label>
             </th>
             <td>
-                <input name="rul_login_url" type="text" id="rul_login_url" value="<?php echo $login_url; ?>" class="regular-text">
+                <input name="rul_login_url" type="text" id="rul_login_url" value="<?php echo esc_attr($login_url); ?>" class="regular-text">
             </td>
         </tr>
         <tr>
@@ -26,7 +26,7 @@ $modal_title = esc_html__('View Available Placeholders', 'peters-login-redirect'
                 <label for="rul_logout_url"><?= esc_html__('Logout URL', 'peters-login-redirect') ?></label>
             </th>
             <td>
-                <input name="rul_logout_url" type="text" id="rul_logout_url" value="<?php echo $logout_url; ?>" class="regular-text">
+                <input name="rul_logout_url" type="text" id="rul_logout_url" value="<?php echo esc_attr($logout_url); ?>" class="regular-text">
             </td>
         </tr>
         </tbody>
