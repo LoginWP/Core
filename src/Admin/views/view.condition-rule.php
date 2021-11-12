@@ -5,7 +5,6 @@ use LoginWP\Core\Admin\RedirectionsPage;
 $db_condition       = sanitize_text_field(loginwpPOST_var('rul_condition', loginwp_var($ruleData, 'rul_type', '')));
 $db_condition_value = sanitize_text_field(loginwpPOST_var('rul_condition_value', loginwp_var($ruleData, 'rul_value', '')));
 $db_condition_order = absint(loginwpPOST_var('rul_order', loginwp_var($ruleData, 'rul_order', 0)));
-
 ?>
 <div class="ptr-loginwp-condition-wrap">
     <div class="ptr-loginwp-row">

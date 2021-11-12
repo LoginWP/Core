@@ -30,19 +30,6 @@ class RedirectWPList extends \WP_List_Table
         $this->process_actions();
     }
 
-    public function hash_map($key = '')
-    {
-        $map = [
-            'user'  => esc_html__('Username', 'peters-login-redirect'),
-            'role'  => esc_html__('User Role', 'peters-login-redirect'),
-            'level' => esc_html__('User Capability', 'peters-login-redirect'),
-        ];
-
-        if ( ! empty($key)) return $map[$key];
-
-        return $map;
-    }
-
     /**
      * Retrieve campaigns data from the database
      *
@@ -181,7 +168,17 @@ class RedirectWPList extends \WP_List_Table
      */
     public function column_rul_type($item)
     {
-        return $this->hash_map($item['rul_type']);
+        $val      = wp_list_filter(RedirectionsPage::get_rule_conditions(), ['id' => $item['rul_type']]);
+        $label    = array_values(wp_list_pluck($val, 'label'))[0];
+        $category = loginwp_var(RedirectionsPage::rule_condition_categories(), $item['rul_type']);;
+
+        if ( ! empty($category) && $category != RedirectionsPage::STANDARD_CATEGORY) {
+            $category .= ': ';
+        } else {
+            $category = '';
+        }
+
+        return sprintf('%s' . $label, "<strong>$category</strong>");
     }
 
     /**
@@ -197,7 +194,7 @@ class RedirectWPList extends \WP_List_Table
             $value = loginwp_var(Helpers::user_role_list(), $item['rul_value']);
         }
 
-        return $value;
+        return apply_filters('rul_column_rul_value', $value, $item);
     }
 
     /**
