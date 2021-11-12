@@ -11,6 +11,8 @@ class RedirectionsPage extends AbstractSettingsPage
      */
     protected $wplist_instance;
 
+    const STANDARD_CATEGORY = 'standard';
+
     public function __construct()
     {
         ProfilePress::get_instance();
@@ -58,28 +60,43 @@ class RedirectionsPage extends AbstractSettingsPage
         return apply_filters('loginwp_redirections_header_menu_tabs', $tabs);
     }
 
+    public static function rule_condition_categories()
+    {
+        return apply_filters('rul_rule_conditions_categories', [
+            self::STANDARD_CATEGORY => esc_html__('Standard', 'peters-login-redirect')
+        ]);
+    }
+
     public static function get_rule_conditions()
     {
         return apply_filters('rul_rule_conditions', [
             [
                 'id'            => 'user',
+                'category'      => self::STANDARD_CATEGORY,
                 'label'         => esc_html__('Username', 'peters-login-redirect'),
                 'options'       => Helpers::username_list(),
                 'order_support' => false
             ],
             [
                 'id'            => 'role',
+                'category'      => self::STANDARD_CATEGORY,
                 'label'         => esc_html__('User Role', 'peters-login-redirect'),
                 'options'       => Helpers::user_role_list(),
                 'order_support' => true
             ],
             [
                 'id'            => 'level',
+                'category'      => self::STANDARD_CATEGORY,
                 'label'         => esc_html__('User Capability', 'peters-login-redirect'),
                 'options'       => Helpers::capability_list(),
                 'order_support' => true
             ]
         ]);
+    }
+
+    public static function get_rule_conditions_by_category($category)
+    {
+        return wp_list_filter(self::get_rule_conditions(), ['category' => $category]);
     }
 
     /**
