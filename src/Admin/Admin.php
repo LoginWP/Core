@@ -55,16 +55,23 @@ class Admin
         add_action('admin_notices', [$this, 'ptlr_is_now_loginwp_notice']);
     }
 
+    public static function set_admin_notice_cache( $id, $timeout ) {
+        $cache_key = 'pand-' . md5( $id );
+        update_site_option( $cache_key, $timeout );
+
+        return true;
+    }
+
     public function act_on_request()
     {
         if ( ! empty($_GET['loginwp_admin_action'])) {
 
             if ($_GET['loginwp_admin_action'] == 'dismiss_leave_review_forever') {
-                PAnD::set_admin_notice_cache('loginwp-review-plugin-notice', 'forever');
+                self::set_admin_notice_cache('loginwp-review-plugin-notice', 'forever');
             }
 
             if ($_GET['loginwp_admin_action'] == 'dismiss_ptlr_now_loginwp') {
-                PAnD::set_admin_notice_cache('ptlr_is_now_loginwp_notice', 'forever');
+                self::set_admin_notice_cache('ptlr_is_now_loginwp_notice', 'forever');
             }
 
             wp_safe_redirect(esc_url_raw(remove_query_arg('loginwp_admin_action')));
@@ -218,8 +225,6 @@ class Admin
         echo "<p>$notice</p>";
         echo '</div>';
     }
-
-
 
     public function removable_query_args($args)
     {
