@@ -31,6 +31,23 @@ add_action('add_meta_boxes', function () use ($ruleData) {
     );
 });
 
+
+if ( ! defined('LOGINWP_DETACH_LIBSODIUM')) {
+    add_action('add_meta_boxes', function () use ($ruleData) {
+        add_meta_box(
+            'ptr-loginwp-pro-conditions',
+            sprintf(
+                    esc_html__('Available Pro Conditions %sUpgrade Now%s', 'peters-login-redirect'),
+                '<a target="_blank" href="https://loginwp.com/pricing/?utm_source=wp_dashboard&utm_medium=upgrade&utm_campaign=pro_conditions_metabox_header">', '</a>'
+            ),
+            function () use ($ruleData) {
+                require dirname(__FILE__) . '/view.pro-conditions.php';
+            },
+            'ptrloginwpredirection'
+        );
+    });
+}
+
 do_action('add_meta_boxes', 'ptrloginwpredirection', '');
 
 ?>

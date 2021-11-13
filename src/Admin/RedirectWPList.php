@@ -169,7 +169,7 @@ class RedirectWPList extends \WP_List_Table
     public function column_rul_type($item)
     {
         $val      = wp_list_filter(RedirectionsPage::get_rule_conditions(), ['id' => $item['rul_type']]);
-        $label    = array_values(wp_list_pluck($val, 'label'))[0];
+        $label    = @array_values(wp_list_pluck($val, 'label'))[0];
         $category = loginwp_var(RedirectionsPage::rule_condition_categories(), $item['rul_type']);;
 
         if ( ! empty($category) && $category != RedirectionsPage::STANDARD_CATEGORY) {

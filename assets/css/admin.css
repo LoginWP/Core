@@ -41,6 +41,16 @@
     padding-right: 0;
 }
 
+.loginwp-admin .ptr-loginwp-pro-condition {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 5px;
+}
+
+.loginwp-admin .ptr-loginwp-pro-conditions-wrap div a {
+    margin-top: 5px;
+}
+
 .loginwp-admin .loginwp-data-listing .handle-actions {
     display: none
 }
