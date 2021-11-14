@@ -56,7 +56,7 @@ class Core
         if ($rul_db_addresses != $wpdb->get_var("SHOW TABLES LIKE '$rul_db_addresses'")) {
             $sql = "CREATE TABLE $rul_db_addresses (
             `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-            `rul_type` varchar(20) NOT NULL,
+            `rul_type` varchar(100) NOT NULL,
             `rul_value` varchar(191) NULL default NULL,
             `rul_url` LONGTEXT NULL default NULL,
             `rul_url_logout` LONGTEXT NULL default NULL,
@@ -170,7 +170,7 @@ class Core
         }
 
         if ($cmp_current_version < 3006) {
-            $wpdb->query("ALTER TABLE $rul_db_addresses CHANGE rul_type rul_type varchar(20) NOT NULL");
+            $wpdb->query("ALTER TABLE $rul_db_addresses CHANGE rul_type rul_type varchar(100) NOT NULL");
         }
 
         update_option('rul_version', PTR_LOGINWP_VERSION_NUMBER, 'no');
