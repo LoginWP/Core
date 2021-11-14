@@ -1,6 +1,12 @@
 <?php
 $pro_conditions = [
-    'LearnDash' => [esc_html__('Course enrolled in', 'peters-login-redirect')]
+    'LearnDash' => [
+        esc_html__('Course enrolled in', 'peters-login-redirect'),
+        esc_html__('Group User Belongs To', 'peters-login-redirect')
+    ],
+    'WooCommerce' => [
+        esc_html__('Product Customer Bought', 'peters-login-redirect')
+    ]
 ];
 ?>
 
