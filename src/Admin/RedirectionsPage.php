@@ -270,6 +270,10 @@ class RedirectionsPage extends AbstractSettingsPage
 
         $error_message = '';
 
+        if (empty($_POST['rul_condition_value'])) {
+            $error_message = __('ERROR: Condition value not specified', 'peters-login-redirect');
+        }
+
         if (empty($_POST['rul_login_url']) && empty($_POST['rul_logout_url'])) {
             $error_message = __('ERROR: No Login or Logout URL specified', 'peters-login-redirect');
         }

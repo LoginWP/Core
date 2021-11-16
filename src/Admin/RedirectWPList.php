@@ -170,9 +170,10 @@ class RedirectWPList extends \WP_List_Table
     {
         $val      = wp_list_filter(RedirectionsPage::get_rule_conditions(), ['id' => $item['rul_type']]);
         $label    = @array_values(wp_list_pluck($val, 'label'))[0];
-        $category = loginwp_var(RedirectionsPage::rule_condition_categories(), $item['rul_type']);;
+        $category_id    = @array_values(wp_list_pluck($val, 'category'))[0];
+        $category = loginwp_var(RedirectionsPage::rule_condition_categories(), $category_id);
 
-        if ( ! empty($category) && $category != RedirectionsPage::STANDARD_CATEGORY) {
+        if ( ! empty($category_id) && $category_id != RedirectionsPage::STANDARD_CATEGORY) {
             $category .= ': ';
         } else {
             $category = '';
