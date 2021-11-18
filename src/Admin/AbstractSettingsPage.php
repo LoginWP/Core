@@ -56,7 +56,7 @@ abstract class AbstractSettingsPage
         <div class="loginwp-header-menus">
             <nav class="loginwp-nav-tab-wrapper nav-tab-wrapper">
                 <?php foreach ($menus as $id => $menu) : ?>
-                    <a href="<?php echo esc_url(remove_query_arg(wp_removable_query_args(), add_query_arg('tab', $id))); ?>" class="loginwp-nav-tab nav-tab<?= $id == $active_menu ? ' loginwp-nav-active' : '' ?>">
+                    <a href="<?php echo esc_url(remove_query_arg(['action', 'id'] + wp_removable_query_args(), add_query_arg('tab', $id))); ?>" class="loginwp-nav-tab nav-tab<?= $id == $active_menu ? ' loginwp-nav-active' : '' ?>">
                         <?php echo $menu ?>
                     </a>
                 <?php endforeach; ?>
