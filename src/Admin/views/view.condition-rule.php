@@ -11,9 +11,10 @@ $db_condition_order = absint(loginwpPOST_var('rul_order', loginwp_var($ruleData,
         <div id="ptr-loginwp-condition-wrap" class="ptr-loginwp-col">
             <label>
                 <select name="rul_condition">
-                    <?php foreach (RedirectionsPage::rule_condition_categories() as $id => $label) : ?>
 
-                        <option value=""><?php esc_html_e('Select a condition', 'peters-login-redirect'); ?></option>
+                    <option value=""><?php esc_html_e('Select a condition', 'peters-login-redirect'); ?></option>
+
+                    <?php foreach (RedirectionsPage::rule_condition_categories() as $id => $label) : ?>
 
                         <?php $conditions = RedirectionsPage::get_rule_conditions_by_category($id); ?>
 
