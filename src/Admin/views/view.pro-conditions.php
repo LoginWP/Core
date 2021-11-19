@@ -1,17 +1,24 @@
 <?php
 $pro_conditions = [
-    'LearnDash'   => [
+    'LearnDash'            => [
         esc_html__('Enrolled Course', 'peters-login-redirect'),
         esc_html__('User Group', 'peters-login-redirect')
     ],
-    'WooCommerce' => [
+    'WooCommerce'          => [
         esc_html__('Purchased Product', 'peters-login-redirect'),
         esc_html__('Purchased Product Category', 'peters-login-redirect'),
         esc_html__('Active User Subscription', 'peters-login-redirect'),
         esc_html__('Active Membership Plan', 'peters-login-redirect')
     ],
+    'MemberPress'          => [
+        esc_html__('Subscribed Membership', 'peters-login-redirect')
+    ],
     'Restrict Content Pro' => [
         esc_html__('Active Membership Level', 'peters-login-redirect')
+    ],
+    'LifterLMS'            => [
+        esc_html__('Enrolled Course', 'peters-login-redirect'),
+        esc_html__('Enrolled Membership', 'peters-login-redirect')
     ]
 ];
 ?>
