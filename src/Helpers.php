@@ -132,11 +132,11 @@ class Helpers
                         $variable_value = $user->user_nicename;
                         break;
                     case 'siteurl':
-                        $variable_value = network_site_url();
+                        $variable_value = site_url();
                         break;
                     case 'homeurl':
                     case 'website_url':
-                        $variable_value = network_home_url();
+                        $variable_value = home_url();
                         break;
                     // Returns the login referrer in order to redirect back to the same page
                     // Note that this will not work if the referrer is the same as the login processor (otherwise in a standard setup you'd redirect to the login form)

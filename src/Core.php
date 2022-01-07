@@ -133,7 +133,7 @@ class Core
         $rul_db_addresses = $wpdb->prefix . PTR_LOGINWP_DB_TABLE_NAME;
 
         // necessary cos pro starts with version 4.
-        $cmp_current_version = str_replace('4.', '3.', get_option('rul_version'));
+        $cmp_current_version = preg_replace('/^4\.(.+)/', '3.$1', get_option('rul_version'));
         // Turn version into an integer for comparisons
         $cmp_current_version = intval(str_replace('.', '', $cmp_current_version));
 
