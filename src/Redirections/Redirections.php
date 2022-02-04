@@ -12,11 +12,21 @@ class Redirections
         add_filter('login_redirect', [__CLASS__, 'login_redirect_callback'], 999999999, 3);
         add_filter('registration_redirect', [__CLASS__, 'registration_redirect_callback'], 10, 2);
         add_filter('logout_redirect', [__CLASS__, 'logout_redirect'], 999999999, 3);
+
+        add_action('wp_logout', function ($user_id) {
+            $url = self::logout_redirect('', '', get_userdata($user_id));
+            if ( ! empty($url)) {
+                wp_redirect($url);
+                exit;
+            }
+
+        }, 1);
+
     }
 
     public function login_redirect_url()
     {
-        if(isset($_GET['loginwp_link_redirect'])) {
+        if (isset($_GET['loginwp_link_redirect'])) {
             wplogin_redirect_control_function();
         }
     }
