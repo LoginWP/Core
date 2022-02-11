@@ -104,9 +104,14 @@ class Helpers
         return false;
     }
 
-    /*
-        A generic function to return the value mapped to a particular variable
-    */
+    /**
+     * A generic function to return the value mapped to a particular variable
+     *
+     * @param $variable
+     * @param \WP_User $user
+     *
+     * @return mixed|string|void|\WP_Error
+     */
     public static function rul_get_variable($variable, $user)
     {
         $variable_value = apply_filters('rul_replace_variable', false, $variable, $user);
@@ -121,6 +126,9 @@ class Helpers
                 }
             } else {
                 switch ($variable) {
+                    case 'user_id':
+                        $variable_value = absint($user->ID);
+                        break;
                     // Returns the current user's username (only use this if you know they're logged in)
                     case 'username':
                         $variable_value = rawurlencode($user->user_login);

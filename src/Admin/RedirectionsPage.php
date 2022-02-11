@@ -445,6 +445,7 @@ class RedirectionsPage extends AbstractSettingsPage
     public static function available_placeholders_structure()
     {
         $available_placeholders = apply_filters('loginwp_login_redirection_placeholders', [
+            'user_id'     => esc_html__('User ID of user', 'peters-login-redirect'),
             'username'    => esc_html__('Username of user', 'peters-login-redirect'),
             'user_slug'   => esc_html__('Author URL slug or user nicename', 'peters-login-redirect'),
             'website_url' => esc_html__('Website URL', 'peters-login-redirect')
