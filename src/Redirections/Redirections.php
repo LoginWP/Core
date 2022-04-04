@@ -16,6 +16,7 @@ class Redirections
         add_action('wp_logout', function ($user_id) {
             $url = self::logout_redirect('', '', get_userdata($user_id));
             if ( ! empty($url)) {
+                nocache_headers();
                 wp_redirect($url);
                 exit;
             }
