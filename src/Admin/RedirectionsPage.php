@@ -69,29 +69,36 @@ class RedirectionsPage extends AbstractSettingsPage
 
     public static function get_rule_conditions()
     {
-        return apply_filters('rul_rule_conditions', [
-            [
-                'id'            => 'user',
-                'category'      => self::STANDARD_CATEGORY,
-                'label'         => esc_html__('Username', 'peters-login-redirect'),
-                'options'       => Helpers::username_list(),
-                'order_support' => false
-            ],
-            [
-                'id'            => 'role',
-                'category'      => self::STANDARD_CATEGORY,
-                'label'         => esc_html__('User Role', 'peters-login-redirect'),
-                'options'       => Helpers::user_role_list(),
-                'order_support' => true
-            ],
-            [
-                'id'            => 'level',
-                'category'      => self::STANDARD_CATEGORY,
-                'label'         => esc_html__('User Capability', 'peters-login-redirect'),
-                'options'       => Helpers::capability_list(),
-                'order_support' => true
-            ]
-        ]);
+        static $cache = [];
+
+        if (empty($cache)) {
+
+            $cache = apply_filters('rul_rule_conditions', [
+                [
+                    'id'            => 'user',
+                    'category'      => self::STANDARD_CATEGORY,
+                    'label'         => esc_html__('Username', 'peters-login-redirect'),
+                    'options'       => Helpers::username_list(),
+                    'order_support' => false
+                ],
+                [
+                    'id'            => 'role',
+                    'category'      => self::STANDARD_CATEGORY,
+                    'label'         => esc_html__('User Role', 'peters-login-redirect'),
+                    'options'       => Helpers::user_role_list(),
+                    'order_support' => true
+                ],
+                [
+                    'id'            => 'level',
+                    'category'      => self::STANDARD_CATEGORY,
+                    'label'         => esc_html__('User Capability', 'peters-login-redirect'),
+                    'options'       => Helpers::capability_list(),
+                    'order_support' => true
+                ]
+            ]);
+        }
+
+        return $cache;
     }
 
     public static function get_rule_conditions_by_category($category)
