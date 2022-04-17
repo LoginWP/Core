@@ -35,7 +35,7 @@ class Helpers
     {
         global $wpdb;
 
-        $rul_userresults = $wpdb->get_results('SELECT user_login FROM ' . $wpdb->users . ' ORDER BY user_login', 'ARRAY_N');
+        $rul_userresults = $wpdb->get_results('SELECT user_login FROM ' . $wpdb->users . ' ORDER BY user_login LIMIT 5000', 'ARRAY_N');
 
         return array_reduce($rul_userresults, function ($carry, $item) {
 
