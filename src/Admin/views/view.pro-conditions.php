@@ -19,6 +19,9 @@ $pro_conditions = [
     'LifterLMS'            => [
         esc_html__('Enrolled Course', 'peters-login-redirect'),
         esc_html__('Enrolled Membership', 'peters-login-redirect')
+    ],
+    'TutorLMS'            => [
+        esc_html__('Enrolled Course', 'peters-login-redirect')
     ]
 ];
 ?>

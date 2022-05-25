@@ -107,6 +107,7 @@ abstract class AbstractSettingsPage
             'Restrict Content Pro',
             'LifterLMS',
             'Easy Digital Downloads',
+            'Tutor LMS',
             'Ultimate Member',
             'WP User Frontend',
             'WP User Manager',
