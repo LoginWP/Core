@@ -35,14 +35,15 @@ class Helpers
     {
         global $wpdb;
 
-        $rul_userresults = $wpdb->get_results('SELECT user_login FROM ' . $wpdb->users . ' ORDER BY user_login LIMIT 5000', 'ARRAY_N');
+        $rul_userresults = $wpdb->get_results('SELECT user_login FROM ' . $wpdb->users . ' ORDER BY user_login', 'ARRAY_N');
 
-        return array_reduce($rul_userresults, function ($carry, $item) {
+        $usernames = array();
 
-            $carry[$item[0]] = $item[0];
+        foreach ($rul_userresults as $item) {
+            $usernames[$item[0]] = $item[0];
+        }
 
-            return $carry;
-        });
+        return $usernames;
     }
 
     public static function user_role_list()

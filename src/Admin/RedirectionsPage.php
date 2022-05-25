@@ -221,6 +221,7 @@ class RedirectionsPage extends AbstractSettingsPage
         $order_support_conditions = wp_list_filter(self::get_rule_conditions(), ['order_support' => true]);
 
         if ( ! empty($order_support_conditions)) {
+
             $order_support_conditions = array_reduce($order_support_conditions, function ($carry, $item) {
                 $carry[] = $item['id'];
 
