@@ -308,8 +308,6 @@ class Helpers
 
         $rul_custom_redirect = apply_filters('rul_before_user_logout', false, $requested_redirect_to, $user);
 
-        var_dump($rul_custom_redirect);
-
         if ($rul_custom_redirect) return self::rul_replace_variable($rul_custom_redirect, $user);
 
         // Check for a redirect rule for this user
