@@ -22,6 +22,12 @@ $pro_conditions = [
     ],
     'TutorLMS'            => [
         esc_html__('Enrolled Course', 'peters-login-redirect')
+    ],
+    'WPML'            => [
+        esc_html__('Website Current Language', 'peters-login-redirect')
+    ],
+    'Polylang'            => [
+        esc_html__('Website Current Language', 'peters-login-redirect')
     ]
 ];
 ?>
