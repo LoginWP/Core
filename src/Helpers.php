@@ -240,8 +240,10 @@ class Helpers
 
         if ($rul_custom_redirect) return self::rul_replace_variable($rul_custom_redirect, $user);
 
+        $user_login = isset($user->user_login) ? $user->user_login : '';
+
         // Check for a redirect rule for this user
-        $rul_user = $wpdb->get_var('SELECT rul_url FROM ' . PTR_LOGINWP_DB_TABLE . ' WHERE rul_type = \'user\' AND rul_value = \'' . $user->user_login . '\' LIMIT 1');
+        $rul_user = $wpdb->get_var('SELECT rul_url FROM ' . PTR_LOGINWP_DB_TABLE . ' WHERE rul_type = \'user\' AND rul_value = \'' . $user_login . '\' LIMIT 1');
 
         if ( ! empty($rul_user)) {
             $url = self::rul_replace_variable($rul_user, $user);
@@ -310,8 +312,10 @@ class Helpers
 
         if ($rul_custom_redirect) return self::rul_replace_variable($rul_custom_redirect, $user);
 
+        $user_login = isset($user->user_login) ? $user->user_login : '';
+
         // Check for a redirect rule for this user
-        $rul_user = $wpdb->get_var('SELECT rul_url_logout FROM ' . PTR_LOGINWP_DB_TABLE . ' WHERE rul_type = \'user\' AND rul_value = \'' . $user->user_login . '\' LIMIT 1');
+        $rul_user = $wpdb->get_var('SELECT rul_url_logout FROM ' . PTR_LOGINWP_DB_TABLE . ' WHERE rul_type = \'user\' AND rul_value = \'' . $user_login . '\' LIMIT 1');
 
         if ($rul_user) {
             $url = self::rul_replace_variable($rul_user, $user);
