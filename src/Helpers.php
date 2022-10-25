@@ -2,6 +2,8 @@
 
 namespace LoginWP\Core;
 
+use ProfilePress\Core\Membership\Repositories\PlanRepository;
+
 class Helpers
 {
     public static function get_rule_by_id($id)
@@ -372,5 +374,67 @@ class Helpers
         }
 
         return false;
+    }
+
+    public static function get_rule_meta_bucket($rule_id)
+    {
+        global $wpdb;
+
+        $table = PTR_LOGINWP_DB_TABLE;
+
+        $value = $wpdb->get_var($wpdb->prepare("SELECT meta_data FROM $table WHERE id = %d", $rule_id));
+
+        return ! empty($value) && loginwp_is_json($value) ? \json_decode($value, true) : [];
+    }
+
+    public static function update_meta($rule_id, $meta_key, $meta_value)
+    {
+        global $wpdb;
+
+        $meta_data = self::get_rule_meta_bucket($rule_id);
+
+        $meta_data[$meta_key] = $meta_value;
+
+        return $wpdb->update(
+            PTR_LOGINWP_DB_TABLE,
+            ['meta_data' => \wp_json_encode($meta_data)],
+            ['id' => $rule_id],
+            ['%s'],
+            ['%d']
+        );
+    }
+
+    /**
+     * @param $meta_key
+     *
+     * @return false|mixed
+     */
+    public static function get_meta($rule_id, $meta_key)
+    {
+        $meta_data = self::get_rule_meta_bucket($rule_id);
+
+        return ppress_var($meta_data, $meta_key);
+    }
+
+    /**
+     * @param $meta_key
+     *
+     * @return false|int
+     */
+    public function delete_meta($rule_id, $meta_key)
+    {
+        global $wpdb;
+
+        $meta_data = self::get_rule_meta_bucket($rule_id);
+
+        unset($meta_data[$meta_key]);
+
+        return $wpdb->update(
+            PTR_LOGINWP_DB_TABLE,
+            ['meta_data' => \wp_json_encode($meta_data)],
+            ['id' => $rule_id],
+            ['%s'],
+            ['%d']
+        );
     }
 }

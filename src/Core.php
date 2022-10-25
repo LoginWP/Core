@@ -173,6 +173,10 @@ class Core
             $wpdb->query("ALTER TABLE $rul_db_addresses CHANGE rul_type rul_type varchar(100) NOT NULL");
         }
 
+        if ($cmp_current_version < 3040) {
+            $wpdb->query("ALTER TABLE $rul_db_addresses ADD COLUMN meta_data longtext NULL");
+        }
+
         update_option('rul_version', PTR_LOGINWP_VERSION_NUMBER, 'no');
 
         add_option('loginwp_install_date', current_time('mysql'));
