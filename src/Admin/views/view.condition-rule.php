@@ -43,6 +43,7 @@ $db_condition_order = absint(loginwpPOST_var('rul_order', loginwp_var($ruleData,
 <div class="ptr-loginwp-order-wrap"<?php echo ! in_array($db_condition, RedirectionsPage::order_support_conditions()) ? 'style="display:none"' : ''; ?>>
     <table class="form-table">
         <tbody>
+        <?php do_action('loginwp_after_sub_condition_tbody'); ?>
         <tr>
             <th>
                 <label for="loginwp-login-url"><?= esc_html__('Order', 'peters-login-redirect') ?></label>
