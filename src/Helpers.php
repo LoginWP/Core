@@ -2,8 +2,6 @@
 
 namespace LoginWP\Core;
 
-use ProfilePress\Core\Membership\Repositories\PlanRepository;
-
 class Helpers
 {
     const FIRST_LOGIN_DB_KEY = 'first_login_condition';
@@ -303,6 +301,13 @@ class Helpers
         }
 
         return $redirect_to;
+    }
+
+    public static function first_time_logic_check($rule_id)
+    {
+        $val = self::get_meta($rule_id, self::FIRST_LOGIN_DB_KEY);
+
+        var_dump($val);
     }
 
     // Get the logout redirect URL according to defined rules
