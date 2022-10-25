@@ -319,6 +319,8 @@ class RedirectionsPage extends AbstractSettingsPage
 
         if ( ! empty($_GET['id'])) {
 
+            $rule_id = absint($_GET['id']);
+
             $result = $wpdb->update(
                 PTR_LOGINWP_DB_TABLE,
                 [
@@ -329,7 +331,7 @@ class RedirectionsPage extends AbstractSettingsPage
                     'rul_url_logout' => sanitize_text_field($_POST['rul_logout_url'])
                 ],
                 [
-                    'id' => absint($_GET['id'])
+                    'id' => $rule_id
                 ],
                 ['%s', '%s', '%d', '%s', '%s'],
                 ['%d']
@@ -343,6 +345,8 @@ class RedirectionsPage extends AbstractSettingsPage
 
                 return;
             }
+
+            Helpers::update_meta($rule_id, Helpers::FIRST_LOGIN_DB_KEY, sanitize_text_field($_POST['rul_first_login']));
         }
 
         if ( ! isset($_GET['id'])) {

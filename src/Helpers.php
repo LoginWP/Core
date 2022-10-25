@@ -6,6 +6,8 @@ use ProfilePress\Core\Membership\Repositories\PlanRepository;
 
 class Helpers
 {
+    const FIRST_LOGIN_DB_KEY = 'first_login_condition';
+
     public static function get_rule_by_id($id)
     {
         global $wpdb;
@@ -380,11 +382,18 @@ class Helpers
     {
         global $wpdb;
 
-        $table = PTR_LOGINWP_DB_TABLE;
+        static $cache = [];
 
-        $value = $wpdb->get_var($wpdb->prepare("SELECT meta_data FROM $table WHERE id = %d", $rule_id));
+        if ( ! isset($cache[$rule_id])) {
 
-        return ! empty($value) && loginwp_is_json($value) ? \json_decode($value, true) : [];
+            $table = PTR_LOGINWP_DB_TABLE;
+
+            $value = $wpdb->get_var($wpdb->prepare("SELECT meta_data FROM $table WHERE id = %d", $rule_id));
+
+            $cache[$rule_id] = ! empty($value) && loginwp_is_json($value) ? \json_decode($value, true) : [];
+        }
+
+        return $cache[$rule_id];
     }
 
     public static function update_meta($rule_id, $meta_key, $meta_value)
@@ -421,7 +430,7 @@ class Helpers
      *
      * @return false|int
      */
-    public function delete_meta($rule_id, $meta_key)
+    public static function delete_meta($rule_id, $meta_key)
     {
         global $wpdb;
 
