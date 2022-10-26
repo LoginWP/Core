@@ -303,11 +303,28 @@ class Helpers
         return $redirect_to;
     }
 
-    public static function first_time_logic_check($rule_id)
+    /**
+     * @param int $rule_id
+     * @param \WP_User $user
+     *
+     * @return bool
+     */
+    public static function first_time_logic_check($rule_id, $user)
     {
         $val = self::get_meta($rule_id, self::FIRST_LOGIN_DB_KEY);
 
-        var_dump($val);
+        if (
+            'true' == loginwp_var($val, 'value') &&
+            strtotime($user->user_registered . ' UTC') >= loginwp_var($val, 'date')) {
+
+            if (get_user_meta($user->ID, 'loginwp_first_time_login_flag') == 'yes') {
+                return false;
+            }
+
+            update_user_meta($user->ID, 'loginwp_first_time_login_flag', 'yes');
+        }
+
+        return true;
     }
 
     // Get the logout redirect URL according to defined rules

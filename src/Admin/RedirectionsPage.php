@@ -346,7 +346,10 @@ class RedirectionsPage extends AbstractSettingsPage
                 return;
             }
 
-            Helpers::update_meta($rule_id, Helpers::FIRST_LOGIN_DB_KEY, sanitize_text_field($_POST['rul_first_login']));
+            Helpers::update_meta($rule_id, Helpers::FIRST_LOGIN_DB_KEY, [
+                'value' => sanitize_text_field($_POST['rul_first_login']),
+                'date'  => current_time('mysql', true)
+            ]);
         }
 
         if ( ! isset($_GET['id'])) {
