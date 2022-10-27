@@ -61,6 +61,7 @@ class Core
             `rul_url` LONGTEXT NULL default NULL,
             `rul_url_logout` LONGTEXT NULL default NULL,
             `rul_order` int(2) NOT NULL default '0',
+            `meta_data` longtext NULL,
             PRIMARY KEY (id)
             )";
 
