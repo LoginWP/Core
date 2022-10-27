@@ -245,10 +245,10 @@ class Helpers
         $user_login = isset($user->user_login) ? $user->user_login : '';
 
         // Check for a redirect rule for this user
-        $rul_user = $wpdb->get_var('SELECT rul_url FROM ' . PTR_LOGINWP_DB_TABLE . ' WHERE rul_type = \'user\' AND rul_value = \'' . $user_login . '\' LIMIT 1');
+        $rul_user = $wpdb->get_row('SELECT id, rul_url FROM ' . PTR_LOGINWP_DB_TABLE . ' WHERE rul_type = \'user\' AND rul_value = \'' . $user_login . '\' LIMIT 1', ARRAY_A);
 
-        if ( ! empty($rul_user)) {
-            $url = self::rul_replace_variable($rul_user, $user);
+        if ( ! empty($rul_user['rul_url']) && self::first_time_logic_check($rul_user['id'], $user)) {
+            $url = self::rul_replace_variable($rul_user['rul_url'], $user);
             if ( ! empty($url)) return $url;
         }
 
@@ -311,20 +311,34 @@ class Helpers
      */
     public static function first_time_logic_check($rule_id, $user)
     {
-        $val = self::get_meta($rule_id, self::FIRST_LOGIN_DB_KEY);
+        static $cache = [];
 
-        if (
-            'true' == loginwp_var($val, 'value') &&
-            strtotime($user->user_registered . ' UTC') >= loginwp_var($val, 'date')) {
+        $cache_key = sprintf('%s_%s', $rule_id, $user->ID);
 
-            if (get_user_meta($user->ID, 'loginwp_first_time_login_flag') == 'yes') {
-                return false;
+        if ( ! isset($cache[$cache_key])) {
+
+            $cache[$cache_key] = true;
+
+            $val = self::get_meta($rule_id, self::FIRST_LOGIN_DB_KEY);
+
+            if ('true' == loginwp_var($val, 'value')) {
+
+                $cache[$cache_key] = false;
+
+                if (
+                    strtotime($user->user_registered . ' UTC') >=
+                    strtotime(loginwp_var($val, 'date') . ' UTC')
+                ) {
+
+                    if (get_user_meta($user->ID, 'loginwp_first_time_login_flag', true) != 'yes') {
+                        $cache[$cache_key] = true;
+                        update_user_meta($user->ID, 'loginwp_first_time_login_flag', 'yes');
+                    }
+                }
             }
-
-            update_user_meta($user->ID, 'loginwp_first_time_login_flag', 'yes');
         }
 
-        return true;
+        return $cache[$cache_key];
     }
 
     // Get the logout redirect URL according to defined rules
