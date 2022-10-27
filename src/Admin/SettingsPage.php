@@ -51,11 +51,6 @@ class SettingsPage extends AbstractSettingsPage
         return apply_filters('loginwp_settings_header_menu_tabs', $tabs);
     }
 
-    public function save_redirect_rule_changes()
-    {
-
-    }
-
     public function settings_page_callback()
     {
         $settings = [
