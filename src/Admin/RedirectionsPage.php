@@ -317,6 +317,8 @@ class RedirectionsPage extends AbstractSettingsPage
 
         if ($order > 99) $order = 0;
 
+        $rule_id = false;
+
         if ( ! empty($_GET['id'])) {
 
             $rule_id = absint($_GET['id']);
@@ -345,13 +347,6 @@ class RedirectionsPage extends AbstractSettingsPage
 
                 return;
             }
-
-            $first_login_data = Helpers::get_meta($rule_id, Helpers::FIRST_LOGIN_DB_KEY);
-
-            Helpers::update_meta($rule_id, Helpers::FIRST_LOGIN_DB_KEY, [
-                'value' => sanitize_text_field($_POST['rul_first_login']),
-                'date'  => $first_login_data['date'] ?? current_time('mysql', true)
-            ]);
         }
 
         if ( ! isset($_GET['id'])) {
@@ -375,11 +370,17 @@ class RedirectionsPage extends AbstractSettingsPage
                 );
             }
 
-            wp_safe_redirect(add_query_arg('saved', 'true', RedirectWPList::edit_rule_url($wpdb->insert_id)));
-            exit;
+            $rule_id = $wpdb->insert_id;
         }
 
-        wp_safe_redirect(esc_url_raw(add_query_arg('saved', 'true')));
+        $first_login_data = Helpers::get_meta($rule_id, Helpers::FIRST_LOGIN_DB_KEY);
+
+        Helpers::update_meta($rule_id, Helpers::FIRST_LOGIN_DB_KEY, [
+            'value' => sanitize_text_field($_POST['rul_first_login']),
+            'date'  => $first_login_data['date'] ?? current_time('mysql', true)
+        ]);
+
+        wp_safe_redirect(add_query_arg('saved', 'true', RedirectWPList::edit_rule_url($rule_id)));
         exit;
     }
 
