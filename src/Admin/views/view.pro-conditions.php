@@ -1,5 +1,8 @@
 <?php
 $pro_conditions = [
+    'After First Login'            => [
+        esc_html__('Redirect users to a specific URL only if they are logging in for the first time', 'peters-login-redirect')
+    ],
     'LearnDash'            => [
         esc_html__('Enrolled Course', 'peters-login-redirect'),
         esc_html__('User Group', 'peters-login-redirect')
