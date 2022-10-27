@@ -475,7 +475,7 @@ class Helpers
     {
         $meta_data = self::get_rule_meta_bucket($rule_id);
 
-        return ppress_var($meta_data, $meta_key);
+        return loginwp_var($meta_data, $meta_key);
     }
 
     /**
