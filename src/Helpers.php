@@ -257,13 +257,17 @@ class Helpers
         if ($rul_custom_redirect) return self::rul_replace_variable($rul_custom_redirect, $user);
 
         // Check for a redirect rule that matches this user's role
-        $rul_roles = $wpdb->get_results('SELECT rul_value, rul_url FROM ' . PTR_LOGINWP_DB_TABLE . ' WHERE rul_type = \'role\' ORDER BY rul_order, rul_value', OBJECT);
+        $rul_roles = $wpdb->get_results('SELECT id, rul_value, rul_url FROM ' . PTR_LOGINWP_DB_TABLE . ' WHERE rul_type = \'role\' ORDER BY rul_order, rul_value', OBJECT);
 
         if ( ! empty($rul_roles)) {
 
             foreach ($rul_roles as $rul_role) {
 
-                if ( ! empty($rul_role->rul_url) && isset($user->{$wpdb->prefix . 'capabilities'}[$rul_role->rul_value])) {
+                if (
+                    ! empty($rul_role->rul_url) &&
+                    isset($user->{$wpdb->prefix . 'capabilities'}[$rul_role->rul_value]) &&
+                    self::first_time_logic_check($rul_role->id, $user)
+                ) {
                     $url = self::rul_replace_variable($rul_role->rul_url, $user);
                     if ( ! empty($url)) return $url;
                 }
@@ -275,12 +279,16 @@ class Helpers
         if ($rul_custom_redirect) return self::rul_replace_variable($rul_custom_redirect, $user);
 
         // Check for a redirect rule that matches this user's capability
-        $rul_levels = $wpdb->get_results('SELECT rul_value, rul_url FROM ' . PTR_LOGINWP_DB_TABLE . ' WHERE rul_type = \'level\' ORDER BY rul_order, rul_value', OBJECT);
+        $rul_levels = $wpdb->get_results('SELECT id, rul_value, rul_url FROM ' . PTR_LOGINWP_DB_TABLE . ' WHERE rul_type = \'level\' ORDER BY rul_order, rul_value', OBJECT);
 
         if ($rul_levels) {
 
             foreach ($rul_levels as $rul_level) {
-                if ( ! empty($rul_level->rul_url) && self::redirect_current_user_can($rul_level->rul_value, $user)) {
+                if (
+                    ! empty($rul_level->rul_url) &&
+                    self::redirect_current_user_can($rul_level->rul_value, $user) &&
+                    self::first_time_logic_check($rul_level->id, $user)
+                ) {
                     $url = self::rul_replace_variable($rul_level->rul_url, $user);
                     if ( ! empty($url)) return $url;
                 }
