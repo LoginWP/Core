@@ -377,7 +377,7 @@ class RedirectionsPage extends AbstractSettingsPage
 
         Helpers::update_meta($rule_id, Helpers::FIRST_LOGIN_DB_KEY, [
             'value' => sanitize_text_field($_POST['rul_first_login']),
-            'date'  => $first_login_data['date'] ?? current_time('mysql', true)
+            'date'  => isset($first_login_data['date']) ? $first_login_data['date'] : current_time('mysql', true)
         ]);
 
         wp_safe_redirect(add_query_arg('saved', 'true', RedirectWPList::edit_rule_url($rule_id)));
