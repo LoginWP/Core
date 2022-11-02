@@ -16,6 +16,9 @@ $pro_conditions = [
     'ProfilePress'         => [
         esc_html__('Subscribed Membership Plan', 'peters-login-redirect')
     ],
+    'Paid Memberships Pro'         => [
+        esc_html__('Subscribed Membership Level', 'peters-login-redirect')
+    ],
     'MemberPress'          => [
         esc_html__('Subscribed Membership', 'peters-login-redirect')
     ],

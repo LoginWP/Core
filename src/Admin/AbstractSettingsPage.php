@@ -112,7 +112,7 @@ abstract class AbstractSettingsPage
             'WP User Frontend',
             'WP User Manager',
             'Uncanny Toolkit',
-            'Paid Membership Pro',
+            'Paid Memberships Pro',
             'User Registration (WPEverest)',
             'Theme My Login',
             'WPML',
