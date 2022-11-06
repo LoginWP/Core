@@ -1,11 +1,7 @@
 <?php
 $pro_conditions = [
-    'After First Login'            => [
+    'After First Login'    => [
         esc_html__('Redirect users to a specific URL only if they are logging in for the first time', 'peters-login-redirect')
-    ],
-    'LearnDash'            => [
-        esc_html__('Enrolled Course', 'peters-login-redirect'),
-        esc_html__('User Group', 'peters-login-redirect')
     ],
     'WooCommerce'          => [
         esc_html__('Purchased Product', 'peters-login-redirect'),
@@ -13,17 +9,9 @@ $pro_conditions = [
         esc_html__('Active User Subscription', 'peters-login-redirect'),
         esc_html__('Active Membership Plan', 'peters-login-redirect')
     ],
-    'ProfilePress'         => [
-        esc_html__('Subscribed Membership Plan', 'peters-login-redirect')
-    ],
-    'Paid Memberships Pro'         => [
-        esc_html__('Subscribed Membership Level', 'peters-login-redirect')
-    ],
-    'MemberPress'          => [
-        esc_html__('Subscribed Membership', 'peters-login-redirect')
-    ],
-    'Restrict Content Pro' => [
-        esc_html__('Active Membership Level', 'peters-login-redirect')
+    'LearnDash'            => [
+        esc_html__('Enrolled Course', 'peters-login-redirect'),
+        esc_html__('User Group', 'peters-login-redirect')
     ],
     'LifterLMS'            => [
         esc_html__('Enrolled Course', 'peters-login-redirect'),
@@ -31,6 +19,21 @@ $pro_conditions = [
     ],
     'TutorLMS'             => [
         esc_html__('Enrolled Course', 'peters-login-redirect')
+    ],
+    'ProfilePress'         => [
+        esc_html__('Subscribed Membership Plan', 'peters-login-redirect')
+    ],
+    'MemberPress'          => [
+        esc_html__('Subscribed Membership', 'peters-login-redirect')
+    ],
+    'Restrict Content Pro' => [
+        esc_html__('Active Membership Level', 'peters-login-redirect')
+    ],
+    'Paid Memberships Pro' => [
+        esc_html__('Subscribed Membership Level', 'peters-login-redirect')
+    ],
+    'WishList Member'      => [
+        esc_html__('Subscribed Membership Level', 'peters-login-redirect')
     ],
     'WPML'                 => [
         esc_html__('Website Current Language', 'peters-login-redirect')
