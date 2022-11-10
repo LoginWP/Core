@@ -128,6 +128,8 @@ class Core
     // Some newer operations are duplicated from rul_install() as there's no guarantee that the user will follow a specific upgrade procedure
     public static function rul_upgrade()
     {
+        if (!current_user_can('manage_options')) return;
+
         global $wpdb;
 
         // important we don't use PTR_LOGINWP_DB_TABLE, rather call $wpdb->prefix . 'table name'
