@@ -97,9 +97,9 @@ class Helpers
         $user_roles   = $current_user->{$wpdb->prefix . 'capabilities'};
         $user_roles   = array_keys($user_roles, true);
         $role         = $user_roles[0];
-        $capabilities = $roles[$role]['capabilities'];
+        $capabilities = isset($roles[$role]['capabilities']) ? $roles[$role]['capabilities'] : [];
 
-        if (in_array($capability, array_keys($capabilities, true))) {
+        if (is_array($capabilities) && in_array($capability, array_keys($capabilities, true))) {
             // check array keys of capabilities for match against requested capability
             return true;
         }
@@ -404,7 +404,7 @@ class Helpers
             foreach ($rul_levels as $rul_level) {
                 if (
                     '' != $rul_level->rul_url_logout &&
-                    self::redirect_current_user_can($rul_level->rul_value, $user)&&
+                    self::redirect_current_user_can($rul_level->rul_value, $user) &&
                     self::first_time_logic_check($rul_level->id, $user)
                 ) {
                     $url = self::rul_replace_variable($rul_level->rul_url_logout, $user);
