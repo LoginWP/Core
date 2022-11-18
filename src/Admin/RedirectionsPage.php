@@ -376,7 +376,7 @@ class RedirectionsPage extends AbstractSettingsPage
         $first_login_data = Helpers::get_meta($rule_id, Helpers::FIRST_LOGIN_DB_KEY);
 
         Helpers::update_meta($rule_id, Helpers::FIRST_LOGIN_DB_KEY, [
-            'value' => sanitize_text_field($_POST['rul_first_login']),
+            'value' => sanitize_text_field(loginwpPOST_var('rul_first_login', '')),
             'date'  => isset($first_login_data['date']) ? $first_login_data['date'] : current_time('mysql', true)
         ]);
 
