@@ -6,6 +6,11 @@ class Helpers
 {
     const FIRST_LOGIN_DB_KEY = 'first_login_condition';
 
+    public static function is_run_core_rules_before_others()
+    {
+        return apply_filters('loginwp_is_run_core_rules_before_others', false);
+    }
+
     public static function get_rule_by_id($id)
     {
         global $wpdb;
@@ -238,9 +243,12 @@ class Helpers
     {
         global $wpdb;
 
-        $rul_custom_redirect = apply_filters('rul_before_user', false, $redirect_to, $requested_redirect_to, $user);
+        if ( ! self::is_run_core_rules_before_others()) {
 
-        if ($rul_custom_redirect) return self::rul_replace_variable($rul_custom_redirect, $user);
+            $rul_custom_redirect = apply_filters('rul_before_user', false, $redirect_to, $requested_redirect_to, $user);
+
+            if ($rul_custom_redirect) return self::rul_replace_variable($rul_custom_redirect, $user);
+        }
 
         $user_login = isset($user->user_login) ? $user->user_login : '';
 
@@ -293,6 +301,13 @@ class Helpers
                     if ( ! empty($url)) return $url;
                 }
             }
+        }
+
+        if (self::is_run_core_rules_before_others()) {
+
+            $rul_custom_redirect = apply_filters('rul_before_user', false, $redirect_to, $requested_redirect_to, $user);
+
+            if ($rul_custom_redirect) return self::rul_replace_variable($rul_custom_redirect, $user);
         }
 
         $rul_custom_redirect = apply_filters('rul_before_fallback', false, $redirect_to, $requested_redirect_to, $user);
