@@ -110,6 +110,7 @@ abstract class AbstractSettingsPage
             'LifterLMS',
             'Easy Digital Downloads',
             'Tutor LMS',
+            'LearnPress',
             'Ultimate Member',
             'WP User Frontend',
             'WP User Manager',

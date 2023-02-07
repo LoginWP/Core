@@ -20,6 +20,9 @@ $pro_conditions = [
     'TutorLMS'             => [
         esc_html__('Enrolled Course', 'peters-login-redirect')
     ],
+    'LearnPress'           => [
+        esc_html__('Enrolled Course', 'peters-login-redirect')
+    ],
     'ProfilePress'         => [
         esc_html__('Subscribed Membership Plan', 'peters-login-redirect')
     ],
